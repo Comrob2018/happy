@@ -381,7 +381,7 @@ def download(socket, delimiter):
     print(myrecvall(socket, delimiter).decode())
 
 
-def command(socket, delimiter, s_prompt):
+def command(socket, delimiter):
     """
     This function will send commands to the client
     :output: the output sent from the client
@@ -392,19 +392,24 @@ def command(socket, delimiter, s_prompt):
     """
     # Initialize a value for start of while loop
     # We print that the client is ready for the command
-    print(myrecvall(socket,delimiter).decode())
+    print(myrecvall(socket,delimiter).decode())  # client tx 1
+    print("srvr rx 1")
     # Now we store the command into a variable
     data = input('[-] What command?> ').encode()
     # Now we send the variable to the client
-    mysendall(socket, data, delimiter)
+    mysendall(socket, data, delimiter)  # client rx 2
+    print("srvr tx 2")
     # Now we check if there is a client message or command output
-    output = myrecvall(socket,delimiter).decode()
+    output = myrecvall(socket,delimiter).decode()  # client tx 3
+    print("srvr rx 3")
     # If there is an error or message it will start with [!]
-    print(output,end='')
+    print(output)
     # Now we tell the client we are ready for the next command
-    mysendall(socket, b'[-] Next', delimiter)
+    mysendall(socket, b'[-] Next', delimiter)  # client rx 4
+    print("srvr tx 4")
     # We recieve the client message
-    print(myrecvall(socket,delimiter).decode())
+    print(myrecvall(socket,delimiter).decode())  # client tx 5
+    print("srvr rx 5")
 
 
 def main():
@@ -517,7 +522,7 @@ def main():
                     continue
                 elif data == b'command':
                     # Enter the command function to run commands
-                    command(conn, delimiter, prompt)
+                    command(conn, delimiter)
                     # Wait for the next server command
                     continue
                 elif data == b'help':
@@ -542,7 +547,7 @@ def main():
         sys.exit()
     except Exception as e:
         # Print any error received from server side during connection attempt
-        print("[-] {}".format(e))
+        print("[-] {}, {}".format(Exception, e))
         # Close the server object
         srvr.close()
         # Exit the program
