@@ -57,7 +57,7 @@ def searcher(starter, known, filename):
         for curfile in files:
             if re.findall(pattern, curfile):
                 fullpath = os.path.join(path, curfile)
-                current = '{0}\n--HASH: {1}'.format(fullpath, md5(fullpath))
+                current = '{0}--HASH: {1}'.format(fullpath, md5(fullpath))
                 results.append(current)
 
     return str(results)
