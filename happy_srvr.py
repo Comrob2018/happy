@@ -200,6 +200,7 @@ def advanced_help():
     All messages that start with [-] are server side
     All messages that start with [!] are client side
     The script will start as follows:
+    [-] Binding Port: <port>
     [-] Listening for connections...(until you receive a connection)
     [-] Connection Received
     [-] Connection established with client at <ip>
@@ -210,6 +211,7 @@ def advanced_help():
         download
         upload
         search
+        shell
         help
         quit
         exit
@@ -227,9 +229,9 @@ def advanced_help():
     For download and upload, the absolute path is required for source file and destination.
     The absolute path includes the file name and extension.
     command     - Send a single shell command to the client. 
-    |    [-] <username>@<user_ip>:<user_working_dir> > command
+    |    [-] <username>@<user_ip>:<user_working_dir> command
     |    [!] Client ready for command
-    |    [!] <username>@<user_ip>:<user_working_dir> > shell command
+    |    [!] <username>@<user_ip>:<user_working_dir> shell command
     |    [!] Command output:
     |    <command output if there is any>
     |    [!] Client command Complete
@@ -237,13 +239,13 @@ def advanced_help():
     input()
     print("""
     download    - receive a file from the client.
-    |    [-] <username>@<user_ip>:<user_working_dir> > download
+    |    [-] <username>@<user_ip>:<user_working_dir> download
     |    [-] Please provide the absolute path for the client file and server destination
     |    [!] Ready for file name
     |    [-] What is the client file?> <Full path to file with extension>
     |    [-] What is the server destination?> <Full path to new location with extension>
     |    [-] File successfully downloaded to : <path provided>
-    |    [!] Client command complete
+    |    [!] Client download complete
     
     upload      - send a file to the client.
     |    [-] <username>@<user_ip>:<user_working_dir> > upload
@@ -253,12 +255,12 @@ def advanced_help():
     |    [-] What client destination?> <full file path to destination on the client system>
     |    [!] Ready for file contents
     |    [!] File uploaded to client at : <file location specified>
-    |    [!] Client Command Complete
+    |    [!] Client upload Complete
     """, end='')
     input()
     print("""
     search      - search the file system using regular expressions
-    |    [-] <username>@<user_ip>:<user_working_dir> > search
+    |    [-] <username>@<user_ip>:<user_working_dir> search
     |    [-] Where should we start looking?> <start location on client>
     |    [-] Do you know the file name?> <yes or no>
     |    If you answer yes:
@@ -268,14 +270,21 @@ def advanced_help():
     |    |    [!] No file name, using default pattern 
     |    [-] Searching for file...
     |    <Results of search>
-    |    [!] Client command complete
+    |    [!] Client search complete
+
+    shell       - enter a command loop for multiple commands
+    |    [-] <username>@<user_ip>:<user_working_dir> shell
+    |    [-] Enter shell command or type back to go back
+    |    [!] <username>@<user_ip>:<user_working_dir> <shell command>
+
     """, end='')
     input()
     print("""
     help        - display the basic or advanced help string  
-    |    [-] <username>@<user_ip>:<user_working_dir> > help
+    |    [-] <username>@<user_ip>:<user_working_dir> help
     |    [-] Would you like the basic or advanced help?> <basic or advanced>
     |    <help string>
+
     disconnect   - disconnect from the client
     |    [-] <username>@<user_ip>:<user_working_dir> disconnect
     |    [-] Listening for Connections...
@@ -297,6 +306,7 @@ def helper():
     """
     basic_str = """
     The script will start as follows:
+    [-] Binding port: <port>
     [-] Listening for connections...(until you receive a connection)
     [-] Connection Received
     [-] Connection established with client at <ip>
@@ -307,6 +317,7 @@ def helper():
         download
         upload
         search
+        shell
         help
         quit
         exit
@@ -324,6 +335,7 @@ def helper():
     download - download(receive) a file from the target system
     upload - Upload(send) a file ot the target system
     search - search the target for specified files using regular expressions
+    shell - enter multiple commands on the client
     help - Display server commands
     quit/exit - exit the program"""
     ask = input("[-] Would you like to view the basic or advanced help?> ")
