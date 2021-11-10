@@ -1,5 +1,6 @@
 # happy
 A bot server and search script that will allow for remote administration of a system.
+
 USAGE: python3 happy_little_bot.py <> python3 happy_little_srvr.py
 
     All messages that start with [-] are server side
