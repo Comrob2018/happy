@@ -13,14 +13,13 @@ USAGE: python3 happy_little_bot.py <> python3 happy_little_srvr.py
     [-] user@ip:working_dir> 
 
     You will see the following prompt once you connect to a client:
-    [-] user@ip: working_dir> server command
+    [-] user@ip: working_dir> 
     For example, if connecting to sam at 127.0.0.1 in the home folder:
-    [-] sam@127.0.0.1: /home> server command
+    [-] sam@127.0.0.1: /home> 
     
     Server commands are listed below with example usage and output everything 
     inside <> will need to be replaced with your data or commands. 
-    For download and upload, the absolute path is required for source file and destination.
-    The absolute path includes the file name and extension.
+    
     cmd = command     - Send a single shell command to the client. 
     |    [-] user@ip: working_dir> cmd
     |    [!] Client ready for command
@@ -29,7 +28,10 @@ USAGE: python3 happy_little_bot.py <> python3 happy_little_srvr.py
     |    [!] Command output:
     |    <command output if there is any>
     |    [!] Client command complete
-
+    
+    For download and upload, the absolute path is required for source file and destination.
+    The absolute path includes the file name and extension.
+    
     dl = download    - receive a file from the client.
     |    [-] user@ip: working_dir> dl
     |    [-] Please provide the absolute path for the client file and server destination
@@ -76,10 +78,12 @@ USAGE: python3 happy_little_bot.py <> python3 happy_little_srvr.py
     
     dc = disconnect   - disconnect from the client
     |    [-] user@ip: working_dir> dc
+    |    [!] Connection terminated at client
     |    [-] Listening for Connections...
     
     qt/ex = quit/exit    - exit the program
     |    [-] user@ip: working_dir> qt
+    |    [!] Connection terminated at client
     |    [-] Good Day sir, you win nothing nada zip.
     |    [-] I said Good Day!
     
