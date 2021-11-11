@@ -1,14 +1,4 @@
-# 
- ██░ ██  ▄▄▄       ██▓███   ██▓███ ▓██   ██▓  ██████  ██▀███   ██▒   █▓ ██▀███
-▓██░ ██▒▒████▄    ▓██░  ██▒▓██░  ██▒▒██  ██▒▒██    ▒ ▓██ ▒ ██▒▓██░   █▒▓██ ▒ ██▒
-▒██▀▀██░▒██  ▀█▄  ▓██░ ██▓▒▓██░ ██▓▒ ▒██ ██░░ ▓██▄   ▓██ ░▄█ ▒ ▓██  █▒░▓██ ░▄█ ▒
-░▓█ ░██ ░██▄▄▄▄██ ▒██▄█▓▒ ▒▒██▄█▓▒ ▒ ░ ▐██▓░  ▒   ██▒▒██▀▀█▄    ▒██ █░░▒██▀▀█▄
-░▓█▒░██▓ ▓█   ▓██▒▒██▒ ░  ░▒██▒ ░  ░ ░ ██▒▓░▒██████▒▒░██▓ ▒██▒   ▒▀█░  ░██▓ ▒██▒
- ▒ ░░▒░▒ ▒▒   ▓▒█░▒▓▒░ ░  ░▒▓▒░ ░  ░  ██▒▒▒ ▒ ▒▓▒ ▒ ░░ ▒▓ ░▒▓░   ░ ▐░  ░ ▒▓ ░▒▓░
- ▒ ░▒░ ░  ▒   ▒▒ ░░▒ ░     ░▒ ░     ▓██ ░▒░ ░ ░▒  ░ ░  ░▒ ░ ▒░   ░ ░░    ░▒ ░ ▒░
- ░  ░░ ░  ░   ▒   ░░       ░░       ▒ ▒ ░░  ░  ░  ░    ░░   ░      ░░    ░░   ░
- ░  ░  ░      ░  ░                  ░ ░           ░     ░           ░     ░
-                                    ░ ░                            ░
+# Happy_SRVR
 A bot server and search script that will allow for remote administration of a system.
 
 USAGE: python3 happy_bot.py <> python3 happy_srvr.py
@@ -100,3 +90,7 @@ USAGE: python3 happy_bot.py <> python3 happy_srvr.py
     
     cl = clear       - clear the terminal screen
     |    [-] user@ip: working_dir> cl
+    
+    b = banner       - Reroll the banner
+    |    [-] user@ip: working_dir> b
+    
