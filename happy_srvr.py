@@ -42,7 +42,6 @@ light_purple = '\033[0;95m'  # This will turn terminal output light purple
 turquoise = '\033[0;96m'  # This will turn terminal output turquoise
 stop = '\033[0m'  # This will return terminal output to its normal color.
 
-    
 banner1 = """
     ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
     ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
@@ -53,16 +52,18 @@ banner1 = """
     ╱╱╱╱╱╱╱┃┃╱╭━╯┃
     ╱╱╱╱╱╱╱╰╯╱╰━━╯
     """
+
 banner2 = '''
-    ┏┓ ┏┓         ┏━━━┳━━━┳┓  ┏┳━━━┓
-    ┃┃╋┃┃╋╋╋╋╋╋╋╋╋┃┏━┓┃┏━┓┃┗┓┏┛┃┏━┓┃
-    ┃┗━┛┣━━┳━━┳┓╋┏┫┗━━┫┗━┛┣┓┃┃┏┫┗━┛┃
-    ┃┏━┓┃┏┓┃┏┓┃┃╋┃┣━━┓┃┏┓┏┛┃┗┛┃┃┏┓┏┛
-    ┃┃╋┃┃┏┓┃┗┛┃┗━┛┃┗━┛┃┃┃┗┓┗┓┏┛┃┃┃┗┓
-    ┗┛╋┗┻┛┗┫┏━┻━┓┏┻━━━┻┛┗━┛╋┗┛╋┗┛┗━┛
-    ╋╋╋╋╋╋╋┃┃╋┏━┛┃
-    ╋╋╋╋╋╋╋┗┛╋┗━━┛
+     _   _                     ______ ____           ____  
+    | | | |                    \  ___)  _ \         |  _ \ 
+    | |_| | __  ________ _  _  _\ \  | |_) )________| |_) )
+    |  _  |/  \/ (  __  ) || || |> > |  __(  _____  )  __/ 
+    | | | ( ()  < | || || \| |/ / /__| |  | |_/ \_| | |    
+    |_| |_|\__/\_\|_||_| \_   _/_____)_|   \___^___/|_|    
+                        | |                             
+                        |_|
     '''
+
 banner3 = '''
     ____    ____                               ____  ________              ________    
     `MM'    `MM'                              6MMMMb\`MMMMMMMb.            `MMMMMMMb.  
@@ -79,41 +80,43 @@ banner3 = '''
                          MM      (8),P                                                 
                         _MM_      YMM                                                  
     '''
+
 banner4 = '''
     88  88    db    88""Yb Yb  dP .dP"Y8 88""Yb Yb    dP 88""Yb 
     88  88   dPYb   88__dP  YbdP  `Ybo." 88__dP  Yb  dP  88__dP 
     888888  dP__Yb  88"""    8P   o.`Y8b 88"Yb    YbdP   88"Yb  
     88  88 dP""""Yb 88      dP    8bodP' 88  Yb    YP    88  Yb
     '''
+
 banner5 = '''
- .S    S.    .S_SSSs     .S_sSSs     .S S.     sSSs   .S_sSSs     .S    S.    .S_sSSs    
-.SS    SS.  .SS~SSSSS   .SS~YS%%b   .SS SS.   d%%SP  .SS~YS%%b   .SS    SS.  .SS~YS%%b   
-S%S    S%S  S%S   SSSS  S%S   `S%b  S%S S%S  d%S'    S%S   `S%b  S%S    S%S  S%S   `S%b  
-S%S    S%S  S%S    S%S  S%S    S%S  S%S S%S  S%|     S%S    S%S  S%S    S%S  S%S    S%S  
-S%S SSSS%S  S%S SSSS%S  S%S    d*S  S%S S%S  S&S     S%S    d*S  S&S    S%S  S%S    d*S  
-S&S  SSS&S  S&S  SSS%S  S&S   .S*S   SS SS   Y&Ss    S&S   .S*S  S&S    S&S  S&S   .S*S  
-S&S    S&S  S&S    S&S  S&S_sdSSS     S S    `S&&S   S&S_sdSSS   S&S    S&S  S&S_sdSSS   
-S&S    S&S  S&S    S&S  S&S~YSSY      SSS      `S*S  S&S~YSY%b   S&S    S&S  S&S~YSY%b   
-S*S    S*S  S*S    S&S  S*S           S*S       l*S  S*S   `S%b  S*b    S*S  S*S   `S%b  
-S*S    S*S  S*S    S*S  S*S           S*S      .S*P  S*S    S%S  S*S.   S*S  S*S    S%S  
-S*S    S*S  S*S    S*S  S*S           S*S    sSS*S   S*S    S&S   SSSbs_S*S  S*S    S&S  
-SSS    S*S  SSS    S*S  S*S           S*S    YSS'    S*S    SSS    YSSP~SSS  S*S    SSS  
-       SP          SP   SP            SP             SP                      SP          
-       Y           Y    Y             Y              Y                       Y  
+    .S    S.    .S_SSSs     .S_sSSs     .S S.     sSSs   .S_sSSs     .S    S.    .S_sSSs    
+    .SS    SS.  .SS~SSSSS   .SS~YS%%b   .SS SS.   d%%SP  .SS~YS%%b   .SS    SS.  .SS~YS%%b   
+    S%S    S%S  S%S   SSSS  S%S   `S%b  S%S S%S  d%S'    S%S   `S%b  S%S    S%S  S%S   `S%b  
+    S%S    S%S  S%S    S%S  S%S    S%S  S%S S%S  S%|     S%S    S%S  S%S    S%S  S%S    S%S  
+    S%S SSSS%S  S%S SSSS%S  S%S    d*S  S%S S%S  S&S     S%S    d*S  S&S    S%S  S%S    d*S  
+    S&S  SSS&S  S&S  SSS%S  S&S   .S*S   SS SS   Y&Ss    S&S   .S*S  S&S    S&S  S&S   .S*S  
+    S&S    S&S  S&S    S&S  S&S_sdSSS     S S    `S&&S   S&S_sdSSS   S&S    S&S  S&S_sdSSS   
+    S&S    S&S  S&S    S&S  S&S~YSSY      SSS      `S*S  S&S~YSY%b   S&S    S&S  S&S~YSY%b   
+    S*S    S*S  S*S    S&S  S*S           S*S       l*S  S*S   `S%b  S*b    S*S  S*S   `S%b  
+    S*S    S*S  S*S    S*S  S*S           S*S      .S*P  S*S    S%S  S*S.   S*S  S*S    S%S  
+    S*S    S*S  S*S    S*S  S*S           S*S    sSS*S   S*S    S&S   SSSbs_S*S  S*S    S&S  
+    SSS    S*S  SSS    S*S  S*S           S*S    YSS'    S*S    SSS    YSSP~SSS  S*S    SSS  
+        SP          SP   SP            SP             SP                      SP          
+        Y           Y    Y             Y              Y                       Y  
     '''
 
 banner6 = """
-8 88        8          .8.        8 8888888o  `8.`88.      ,8' d8888o.   8 8888888o. `8.`8b           ,8' 8 8888888o.   
-8 88        8         .8.         8 88    `88. `8.`88.    ,8'.`88:' `88. 8 88    `88. `8.`8b         ,8'  8 88    `88.  
-8 88        8        :888.        8 88     `88  `8.`88.  ,8' 8.`88.   Y8 8 88     `88  `8.`8b       ,8'   8 88     `88  
-8 88        8       . `888.       8 88     ,88   `8.`88.,8'  `8.`88.     8 88     ,88   `8.`8b     ,8'    8 88     ,88  
-8 88        8      .8. `888.      8 88.   ,88'    `8.`888'    `8.`88.    8 88.   ,88'    `8.`8b   ,8'     8 88.   ,88'  
-8 88        8     .8`8. `888.     8 8888888P'      `8. 88      `8.`88.   8 8888888P'      `8.`8b ,8'      8 8888888P'   
-8 88888888888    .8' `8. `888.    8 88              `8 88       `8.`88.  8 88`8b           `8.`8b8'       8 88`8b       
-8 88        8   .8'   `8. `888.   8 88               8 88   8b   `8.`88. 8 88 `8b.          `8.`8'        8 88 `8b.     
-8 88        8  .888888888. `888.  8 88               8 88   `8b.  ;8.`88 8 88   `8b.         `8`8'        8 88   `8b.   
-8 88        8 .8'       `8. `888. 8 88               8 88    `Y88P ,88P' 8 88     `88.        `8.`        8 88     `88.
-"""
+    8 88        8          .8.        8 8888888o  `8.`88.      ,8' d8888o.   8 8888888o. `8.`8b           ,8' 8 8888888o.   
+    8 88        8         .8.         8 88    `88. `8.`88.    ,8'.`88:' `88. 8 88    `88. `8.`8b         ,8'  8 88    `88.  
+    8 88        8        :888.        8 88     `88  `8.`88.  ,8' 8.`88.   Y8 8 88     `88  `8.`8b       ,8'   8 88     `88  
+    8 88        8       . `888.       8 88     ,88   `8.`88.,8'  `8.`88.     8 88     ,88   `8.`8b     ,8'    8 88     ,88  
+    8 88        8      .8. `888.      8 88.   ,88'    `8.`888'    `8.`88.    8 88.   ,88'    `8.`8b   ,8'     8 88.   ,88'  
+    8 88        8     .8`8. `888.     8 8888888P'      `8. 88      `8.`88.   8 8888888P'      `8.`8b ,8'      8 8888888P'   
+    8 88888888888    .8' `8. `888.    8 88              `8 88       `8.`88.  8 88`8b           `8.`8b8'       8 88`8b       
+    8 88        8   .8'   `8. `888.   8 88               8 88   8b   `8.`88. 8 88 `8b.          `8.`8'        8 88 `8b.     
+    8 88        8  .888888888. `888.  8 88               8 88   `8b.  ;8.`88 8 88   `8b.         `8`8'        8 88   `8b.   
+    8 88        8 .8'       `8. `888. 8 88               8 88    `Y88P ,88P' 8 88     `88.        `8.`        8 88     `88.
+    """
 
 banner7 = """
     888    888                             .d8888b.  8888888b.           8888888b.  
@@ -128,6 +131,7 @@ banner7 = """
                         888      Y8b d88P                                           
                         888       "Y88P"                                            
     """
+
 banner8 = """
      ____        ____  ____                    _   _ 
     |  _ \__   _|  _ \/ ___| _   _ _ __   __ _| | | |
@@ -135,6 +139,33 @@ banner8 = """
     |  _ < \ V /|  _ < ___) | |_| | |_) | (_| |  _  |
     |_| \_\ \_/ |_| \_\____/ \__, | .__/ \__,_|_| |_|
                              |___/|_|                  
+    """
+
+banner9 = """
+    >=>    >=>                                  >=>>=>   >======>                 >======>    
+    >=>    >=>                                >=>    >=> >=>    >=>               >=>    >=>  
+    >=>    >=>    >=> >=>  >=> >=>  >=>   >=>  >=>       >=>    >=>   >=>     >=> >=>    >=>  
+    >=====>>=>  >=>   >=>  >>   >=>  >=> >=>     >=>     >> >==>       >=>   >=>  >> >==>     
+    >=>    >=> >=>    >=>  >>   >=>    >==>         >=>  >=>  >=>       >=> >=>   >=>  >=>    
+    >=>    >=>  >=>   >=>  >=> >=>      >=>   >=>    >=> >=>    >=>      >=>=>    >=>    >=>  
+    >=>    >=>   >==>>>==> >=>         >=>      >=>>=>   >=>      >=>     >=>     >=>      >=>
+                        >=>       >=>                                                      
+    """
+
+banner10 = """                                                                                      
+                                                        .                                 
+    .    .                  t                          ;Wj.                    j.         
+    Di   Dt              .. ED.       f.     ;WE.     f#EEW,                   EW,        
+    E#i  E#i            ;W, E#K:      E#,   i#G     .E#f E##j       t      .DD.E##j       
+    E#t  E#t           j##, E##W;     E#t  f#f     iWW;  E###D.     EK:   ,WK. E###D.     
+    E#t  E#t          G###, E#E##t    E#t G#i     L##LffiE#jG#W;    E#t  i#D   E#jG#W;    
+    E########f.     :E####, E#ti##f   E#jEW,     tLLG##L E#t t##f   E#t j#f    E#t t##f   
+    E#j..K#j...    ;W#DG##, E#t ;##D. E##E.        ,W#i  E#t  :K#E: E#tL#i     E#t  :K#E: 
+    E#t  E#t      j###DW##, E#ELLE##K:E#G         j#E.   E#KDDDD###iE#WW,      E#KDDDD###i
+    E#t  E#t     G##i,,G##, E#L;;;;;;,E#t       .D#j     E#f,t#Wi,,,E#K:       E#f,t#Wi,,,
+    f#t  f#t   :K#K:   L##, E#t       E#t      ,WK,      E#t  ;#W:  ED.        E#t  ;#W:  
+    ii   ii  ;##D.    L##, E#t       EE.      EG.       DWi   ,KK: t          DWi   ,KK: 
+            ,,,      .,,            t        ,                                          
     """
 
 banner_list = [banner1, banner2, banner3, banner4, banner5, banner6, banner7, banner8]
