@@ -1,4 +1,4 @@
-# Happy_SRVR
+# Hapy_SRVR
 A bot server and search script that will allow for remote administration of a system.
 
 USAGE: python3 happy_bot.py <> python3 happy_srvr.py
