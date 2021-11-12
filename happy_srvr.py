@@ -37,68 +37,108 @@ white = '\033[0;37m'  # This will turn terminal output white
 light_red = '\033[0;91m'  # This will turn terminal output light red
 light_green = '\033[0;92m'  # This will turn terminal output light green
 light_yellow = '\033[0;93m'  # This will turn terminal output light yellow
-teal = '\033[0;106m'  # This will turn terminal output light blue
+teal = '\033[0;34m'  # This will turn terminal output light blue
 light_purple = '\033[0;95m'  # This will turn terminal output light purple
 turquoise = '\033[0;96m'  # This will turn terminal output turquoise
 stop = '\033[0m'  # This will return terminal output to its normal color.
 
     
 banner1 = """
-    ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
-    ┃┃╱┃┃╱╱╱╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
-    ┃╰━╯┣━━┳━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
-    ┃╭━╮┃╭╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
-    ┃┃╱┃┃╭╮┃╰╯┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
-    ╰╯╱╰┻╯╰┫╭━┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
-    ╱╱╱╱╱╱╱┃┃╱┃┃╱╭━╯┃
-    ╱╱╱╱╱╱╱╰╯╱╰╯╱╰━━╯
+    ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
+    ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
+    ┃╰━╯┣━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
+    ┃╭━╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
+    ┃┃╱┃┃╭╮┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
+    ╰╯╱╰┻╯╰┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
+    ╱╱╱╱╱╱╱┃┃╱╭━╯┃
+    ╱╱╱╱╱╱╱╰╯╱╰━━╯
     """
 banner2 = '''
-    ┏┓╋┏┓╋╋╋╋╋╋╋╋╋╋╋╋┏━━━┳━━━┳┓╋╋┏┳━━━┓
-    ┃┃╋┃┃╋╋╋╋╋╋╋╋╋╋╋╋┃┏━┓┃┏━┓┃┗┓┏┛┃┏━┓┃
-    ┃┗━┛┣━━┳━━┳━━┳┓╋┏┫┗━━┫┗━┛┣┓┃┃┏┫┗━┛┃
-    ┃┏━┓┃┏┓┃┏┓┃┏┓┃┃╋┃┣━━┓┃┏┓┏┛┃┗┛┃┃┏┓┏┛
-    ┃┃╋┃┃┏┓┃┗┛┃┗┛┃┗━┛┃┗━┛┃┃┃┗┓┗┓┏┛┃┃┃┗┓
-    ┗┛╋┗┻┛┗┫┏━┫┏━┻━┓┏┻━━━┻┛┗━┛╋┗┛╋┗┛┗━┛
-    ╋╋╋╋╋╋╋┃┃╋┃┃╋┏━┛┃
-    ╋╋╋╋╋╋╋┗┛╋┗┛╋┗━━┛
+    ┏┓ ┏┓         ┏━━━┳━━━┳┓  ┏┳━━━┓
+    ┃┃╋┃┃╋╋╋╋╋╋╋╋╋┃┏━┓┃┏━┓┃┗┓┏┛┃┏━┓┃
+    ┃┗━┛┣━━┳━━┳┓╋┏┫┗━━┫┗━┛┣┓┃┃┏┫┗━┛┃
+    ┃┏━┓┃┏┓┃┏┓┃┃╋┃┣━━┓┃┏┓┏┛┃┗┛┃┃┏┓┏┛
+    ┃┃╋┃┃┏┓┃┗┛┃┗━┛┃┗━┛┃┃┃┗┓┗┓┏┛┃┃┃┗┓
+    ┗┛╋┗┻┛┗┫┏━┻━┓┏┻━━━┻┛┗━┛╋┗┛╋┗┛┗━┛
+    ╋╋╋╋╋╋╋┃┃╋┏━┛┃
+    ╋╋╋╋╋╋╋┗┛╋┗━━┛
     '''
-banner3 = """
-     ██░ ██  ▄▄▄       ██▓███   ██▓███ ▓██   ██▓  ██████  ██▀███   ██▒   █▓ ██▀███
-    ▓██░ ██▒▒████▄    ▓██░  ██▒▓██░  ██▒▒██  ██▒▒██    ▒ ▓██  ██▒▓██░   █▒▓██   ██▒
-    ▒██▀▀██░▒██  ▀█▄  ▓██░ ██▓▒▓██░ ██▓▒ ▒██ ██░░ ▓██▄   ▓██  ▄█ ▒ ▓██  █▒░▓██  ▄█ ▒
-    ░▓█ ░██ ░██▄▄▄▄██ ▒██▄█▓▒ ▒▒██▄█▓▒ ▒ ░ ▐██▓░  ▒   ██▒▒██▀▀█▄    ▒██ █░░▒██▀▀█▄
-    ░▓█▒░██▓ ▓█   ▓██▒▒██▒ ░  ░▒██▒ ░  ░ ░ ██▒▓░▒██████▒▒░██▓ ▒██▒   ▒▀█░  ░██▓ ▒██▒
-     ▒ ░░▒░▒ ▒▒   ▓▒█░▒▓▒░ ░  ░▒▓▒░ ░  ░  ██▒▒▒ ▒ ▒▓▒ ▒ ░░ ▒▓ ░▒▓░   ░ ▐░  ░ ▒▓ ░▒▓░
-     ▒ ░▒░ ░  ▒   ▒▒ ░░▒ ░     ░▒ ░     ▓██ ░▒░ ░ ░▒  ░ ░  ░▒ ░ ▒░   ░ ░░    ░▒ ░ ▒░
-     ░  ░░ ░  ░   ▒   ░░       ░░       ▒ ▒ ░░  ░  ░  ░    ░░   ░      ░░    ░░   ░
-     ░  ░  ░      ░  ░                  ░ ░           ░     ░           ░     ░
-                                        ░ ░                            ░
-    """
+banner3 = '''
+    ____    ____                               ____  ________              ________    
+    `MM'    `MM'                              6MMMMb\`MMMMMMMb.            `MMMMMMMb.  
+     MM      MM                              6M'    ` MM    `Mb             MM    `Mb  
+     MM      MM    ___  __ ____  ____    ___ MM       MM     MM ____    ___ MM     MM  
+     MM      MM  6MMMMb `M6MMMMb `MM(    )M' YM.      MM     MM `MM(    )M' MM     MM  
+     MMMMMMMMMM 8M'  `Mb MM'  `Mb `Mb    d'   YMMMMb  MM    .M9  `Mb    d'  MM    .M9  
+     MM      MM     ,oMM MM    MM  YM.  ,P        `Mb MMMMMMM9'   YM.  ,P   MMMMMMM9'  
+     MM      MM ,6MM9'MM MM    MM   MM  M          MM MM  \M\      MM  M    MM  \M\    
+     MM      MM MM'   MM MM    MM   `Mbd'          MM MM   \M\     `Mbd'    MM   \M\   
+     MM      MM MM.  ,MM MM.  ,M9    YMP     L    ,M9 MM    \M\     YMP     MM    \M\  
+    _MM_    _MM_`YMMM9'YbMMYMMM9      M      MYMMMM9 _MM_    \M\_    M     _MM_    \M\_
+                         MM          d'                                                
+                         MM      (8),P                                                 
+                        _MM_      YMM                                                  
+    '''
 banner4 = '''
-    88  88    db    88""Yb 88""Yb Yb  dP .dP"Y8 88""Yb Yb    dP 88""Yb
-    88  88   dPYb   88__dP 88__dP  YbdP  `Ybo." 88__dP  Yb  dP  88__dP
-    888888  dP__Yb  88"""  88"""    8P   o.`Y8b 88"Yb    YbdP   88"Yb
-    88  88 dP""""Yb 88     88      dP    8bodP' 88  Yb    YP    88  Yb
+    88  88    db    88""Yb Yb  dP .dP"Y8 88""Yb Yb    dP 88""Yb 
+    88  88   dPYb   88__dP  YbdP  `Ybo." 88__dP  Yb  dP  88__dP 
+    888888  dP__Yb  88"""    8P   o.`Y8b 88"Yb    YbdP   88"Yb  
+    88  88 dP""""Yb 88      dP    8bodP' 88  Yb    YP    88  Yb
     '''
 banner5 = '''
-     .S    S.    .S_SSSs     .S_sSSs     .S_sSSs     .S S.     sSSs   .S_sSSs     .S    S.    .S_sSSs
-    .SS    SS.  .SS~SSSSS   .SS~YS%%b   .SS~YS%%b   .SS SS.   d%%SP  .SS~YS%%b   .SS    SS.  .SS~YS%%b
-    S%S    S%S  S%S   SSSS  S%S   `S%b  S%S   `S%b  S%S S%S  d%S'    S%S   `S%b  S%S    S%S  S%S   `S%b
-    S%S    S%S  S%S    S%S  S%S    S%S  S%S    S%S  S%S S%S  S%|     S%S    S%S  S%S    S%S  S%S    S%S
-    S%S SSSS%S  S%S SSSS%S  S%S    d*S  S%S    d*S  S%S S%S  S&S     S%S    d*S  S&S    S%S  S%S    d*S
-    S&S  SSS&S  S&S  SSS%S  S&S   .S*S  S&S   .S*S   SS SS   Y&Ss    S&S   .S*S  S&S    S&S  S&S   .S*S
-    S&S    S&S  S&S    S&S  S&S_sdSSS   S&S_sdSSS     S S    `S&&S   S&S_sdSSS   S&S    S&S  S&S_sdSSS
-    S&S    S&S  S&S    S&S  S&S~YSSY    S&S~YSSY      SSS      `S*S  S&S~YSY%b   S&S    S&S  S&S~YSY%b
-    S*S    S*S  S*S    S&S  S*S         S*S           S*S       l*S  S*S   `S%b  S*b    S*S  S*S   `S%b
-    S*S    S*S  S*S    S*S  S*S         S*S           S*S      .S*P  S*S    S%S  S*S.   S*S  S*S    S%S
-    S*S    S*S  S*S    S*S  S*S         S*S           S*S    sSS*S   S*S    S&S   SSSbs_S*S  S*S    S&S
-    SSS    S*S  SSS    S*S  S*S         S*S           S*S    YSS'    S*S    SSS    YSSP~SS   S*S    SSS
-           SP          SP   SP          SP            SP             SP              YYS     SP
-           Y           Y    Y           Y             Y              Y                Y      Y
+ .S    S.    .S_SSSs     .S_sSSs     .S S.     sSSs   .S_sSSs     .S    S.    .S_sSSs    
+.SS    SS.  .SS~SSSSS   .SS~YS%%b   .SS SS.   d%%SP  .SS~YS%%b   .SS    SS.  .SS~YS%%b   
+S%S    S%S  S%S   SSSS  S%S   `S%b  S%S S%S  d%S'    S%S   `S%b  S%S    S%S  S%S   `S%b  
+S%S    S%S  S%S    S%S  S%S    S%S  S%S S%S  S%|     S%S    S%S  S%S    S%S  S%S    S%S  
+S%S SSSS%S  S%S SSSS%S  S%S    d*S  S%S S%S  S&S     S%S    d*S  S&S    S%S  S%S    d*S  
+S&S  SSS&S  S&S  SSS%S  S&S   .S*S   SS SS   Y&Ss    S&S   .S*S  S&S    S&S  S&S   .S*S  
+S&S    S&S  S&S    S&S  S&S_sdSSS     S S    `S&&S   S&S_sdSSS   S&S    S&S  S&S_sdSSS   
+S&S    S&S  S&S    S&S  S&S~YSSY      SSS      `S*S  S&S~YSY%b   S&S    S&S  S&S~YSY%b   
+S*S    S*S  S*S    S&S  S*S           S*S       l*S  S*S   `S%b  S*b    S*S  S*S   `S%b  
+S*S    S*S  S*S    S*S  S*S           S*S      .S*P  S*S    S%S  S*S.   S*S  S*S    S%S  
+S*S    S*S  S*S    S*S  S*S           S*S    sSS*S   S*S    S&S   SSSbs_S*S  S*S    S&S  
+SSS    S*S  SSS    S*S  S*S           S*S    YSS'    S*S    SSS    YSSP~SSS  S*S    SSS  
+       SP          SP   SP            SP             SP                      SP          
+       Y           Y    Y             Y              Y                       Y  
     '''
-banner_list = [banner1, banner2, banner3, banner4, banner5]
-color_list = [red, green, cyan, magenta, yellow, white, light_red, light_green, light_purple, light_yellow, turquoise, teal]
+
+banner6 = """
+8 88        8          .8.        8 8888888o  `8.`88.      ,8' d8888o.   8 8888888o. `8.`8b           ,8' 8 8888888o.   
+8 88        8         .8.         8 88    `88. `8.`88.    ,8'.`88:' `88. 8 88    `88. `8.`8b         ,8'  8 88    `88.  
+8 88        8        :888.        8 88     `88  `8.`88.  ,8' 8.`88.   Y8 8 88     `88  `8.`8b       ,8'   8 88     `88  
+8 88        8       . `888.       8 88     ,88   `8.`88.,8'  `8.`88.     8 88     ,88   `8.`8b     ,8'    8 88     ,88  
+8 88        8      .8. `888.      8 88.   ,88'    `8.`888'    `8.`88.    8 88.   ,88'    `8.`8b   ,8'     8 88.   ,88'  
+8 88        8     .8`8. `888.     8 8888888P'      `8. 88      `8.`88.   8 8888888P'      `8.`8b ,8'      8 8888888P'   
+8 88888888888    .8' `8. `888.    8 88              `8 88       `8.`88.  8 88`8b           `8.`8b8'       8 88`8b       
+8 88        8   .8'   `8. `888.   8 88               8 88   8b   `8.`88. 8 88 `8b.          `8.`8'        8 88 `8b.     
+8 88        8  .888888888. `888.  8 88               8 88   `8b.  ;8.`88 8 88   `8b.         `8`8'        8 88   `8b.   
+8 88        8 .8'       `8. `888. 8 88               8 88    `Y88P ,88P' 8 88     `88.        `8.`        8 88     `88.
+"""
+
+banner7 = """
+    888    888                             .d8888b.  8888888b.           8888888b.  
+    888    888                            d88P  Y88b 888   Y88b          888   Y88b 
+    888    888                            Y88b.      888    888          888    888 
+    8888888888  8888b.  88888b.  888  888  "Y888b.   888   d88P 888  888 888   d88P 
+    888    888     "88b 888 "88b 888  888     "Y88b. 8888888P"  888  888 8888888P"  
+    888    888 .d888888 888  888 888  888       "888 888 T88b   Y88  88P 888 T88b   
+    888    888 888  888 888 d88P Y88b 888 Y88b  d88P 888  T88b   Y8bd8P  888  T88b  
+    888    888 "Y888888 88888P"   "Y88888  "Y8888P"  888   T88b   Y88P   888   T88b 
+                        888           888                                           
+                        888      Y8b d88P                                           
+                        888       "Y88P"                                            
+    """
+banner8 = """
+     ____        ____  ____                    _   _ 
+    |  _ \__   _|  _ \/ ___| _   _ _ __   __ _| | | |
+    | |_) \ \ / / |_) \___ \| | | | '_ \ / _` | |_| |
+    |  _ < \ V /|  _ < ___) | |_| | |_) | (_| |  _  |
+    |_| \_\ \_/ |_| \_\____/ \__, | .__/ \__,_|_| |_|
+                             |___/|_|                  
+    """
+
+banner_list = [banner1, banner2, banner3, banner4, banner5, banner6, banner7, banner8]
+color_list = [red, green, cyan, magenta, yellow, white, light_red, light_green, light_purple, light_yellow, turquoise]
 def banner_roll():
     screen_wipe()
     rbanner = random.choice(banner_list)
@@ -287,7 +327,6 @@ def advanced_help():
     {0}[-]{1} Connection established with client at <ip> !
     {0}[-]{1} Enter server command or type ? for server command list
     {0}[-]{1} user@ip: working_dir> 
-
     You will see the following prompt once you connect to a client:
     {0}[-]{1} user@ip: working_dir> server command
     For example, if connecting to sam at 127.0.0.1 in the home folder:
@@ -350,7 +389,6 @@ def advanced_help():
     |    {0}[-]{1} Searching for file...
     |    <Results of search>
     |    {2}[!]{1} Client search complete
-
     sh = shell  - enter a command loop for multiple commands
     |           - This will only work on linux currently!
     |    {0}[-]{1} user@ip:working_dir> sh
@@ -363,7 +401,6 @@ def advanced_help():
     |    {0}[-]{1} user@ip:working_dir> h
     |    {0}[-]{1} Would you like the basic or advanced help?> <b or adv>
     |    <help string>
-
     dc = disconnect - disconnect from the client
     |    {0}[-]{1} user@ip:working_dir> dc
     |    {2}[!]{1} Client terminated connection
@@ -372,11 +409,9 @@ def advanced_help():
     qt/ex = quit/exit - exit the program
     |    {0}[-]{1} user@ip:working_dir> qt or ex
     |    {0}[-]{1} Good Day sir, you win nothing nada zip.
-
     cl = clear       - clear the terminal screen using cls or clear
     |    {0}[-]{1} user@ip:working_dir> cl
     |
-
     b = banner      - display a new banner
     |    {0}[-]{1} user@ip: working_dir> b
     |
@@ -396,7 +431,6 @@ def advanced_help():
 
 def basic_help():
     print("""The script will start as follows:
-
     {0}[-]{1} Binding port: <port>
     {0}[-]{1} Listening for connections...(until you receive a connection)
     {0}[-]{1} Connection established with client at <ip>
@@ -405,7 +439,6 @@ def basic_help():
     
     You will see the following prompt once you connect to a client:
     {0}[-]{1} user@ip:working_dir> server command
-
     For example, if connecting to sam at 127.0.0.1 in the home folder:
     {0}[-]{1} sam@127.0.0.1:/home> server command
   
