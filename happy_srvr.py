@@ -26,6 +26,8 @@ import sys
 import subprocess
 import time
 import random
+import datetime
+
 
 # Here are a list of color codes for terminal colorized output
 red = '\033[0;31m'  # This will turn terminal output red
@@ -37,20 +39,20 @@ white = '\033[0;37m'  # This will turn terminal output white
 light_red = '\033[0;91m'  # This will turn terminal output light red
 light_green = '\033[0;92m'  # This will turn terminal output light green
 light_yellow = '\033[0;93m'  # This will turn terminal output light yellow
-teal = '\033[0;34m'  # This will turn terminal output light blue
+teal = '\033[0;106m'  # This will turn terminal output light blue
 light_purple = '\033[0;95m'  # This will turn terminal output light purple
 turquoise = '\033[0;96m'  # This will turn terminal output turquoise
 stop = '\033[0m'  # This will return terminal output to its normal color.
 
 banner1 = """
-    ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
-    ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
-    ┃╰━╯┣━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
-    ┃╭━╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
-    ┃┃╱┃┃╭╮┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
-    ╰╯╱╰┻╯╰┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
-    ╱╱╱╱╱╱╱┃┃╱╭━╯┃
-    ╱╱╱╱╱╱╱╰╯╱╰━━╯
+    ╭╮ ╭╮         ╭━━━┳━━━┳╮  ╭┳━━━╮
+    ┃┃ ┃┃         ┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
+    ┃╰━╯┣━━┳━━┳╮ ╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
+    ┃╭━╮┃╭╮┃╭╮┃┃ ┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
+    ┃┃ ┃┃╭╮┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
+    ╰╯ ╰┻╯╰┫╭━┻━╮╭┻━━━┻╯╰━╯ ╰╯ ╰╯╰━╯
+           ┃┃ ╭━╯┃
+           ╰╯ ╰━━╯
     """
 
 banner2 = '''
@@ -60,8 +62,8 @@ banner2 = '''
     |  _  |/  \/ (  __  ) || || |> > |  __(  _____  )  __/ 
     | | | ( ()  < | || || \| |/ / /__| |  | |_/ \_| | |    
     |_| |_|\__/\_\|_||_| \_   _/_____)_|   \___^___/|_|    
-                        | |                             
-                        |_|
+                           | |                             
+                           |_|
     '''
 
 banner3 = '''
@@ -89,7 +91,7 @@ banner4 = '''
     '''
 
 banner5 = '''
-    .S    S.    .S_SSSs     .S_sSSs     .S S.     sSSs   .S_sSSs     .S    S.    .S_sSSs    
+    .S     S.    .S_SSSs     .S_sSSs     .S S.     sSSs   .S_sSSs     .S    S.    .S_sSSs    
     .SS    SS.  .SS~SSSSS   .SS~YS%%b   .SS SS.   d%%SP  .SS~YS%%b   .SS    SS.  .SS~YS%%b   
     S%S    S%S  S%S   SSSS  S%S   `S%b  S%S S%S  d%S'    S%S   `S%b  S%S    S%S  S%S   `S%b  
     S%S    S%S  S%S    S%S  S%S    S%S  S%S S%S  S%|     S%S    S%S  S%S    S%S  S%S    S%S  
@@ -100,13 +102,13 @@ banner5 = '''
     S*S    S*S  S*S    S&S  S*S           S*S       l*S  S*S   `S%b  S*b    S*S  S*S   `S%b  
     S*S    S*S  S*S    S*S  S*S           S*S      .S*P  S*S    S%S  S*S.   S*S  S*S    S%S  
     S*S    S*S  S*S    S*S  S*S           S*S    sSS*S   S*S    S&S   SSSbs_S*S  S*S    S&S  
-    SSS    S*S  SSS    S*S  S*S           S*S    YSS'    S*S    SSS    YSSP~SSS  S*S    SSS  
-        SP          SP   SP            SP             SP                      SP          
-        Y           Y    Y             Y              Y                       Y  
+    SSS    S*S  SSS    S*S  S*S           S*S    YSS'    S*S    SSS    YSSP~SS   S*S    SSS  
+    SP          SP          SP            SP     SP      SP              SPS     SP     
+    Y           Y           Y             Y      Y       Y                Y      Y
     '''
 
 banner6 = """
-    8 88        8          .8.        8 8888888o  `8.`88.      ,8' d8888o.   8 8888888o. `8.`8b           ,8' 8 8888888o.   
+    8 88        8          .          8 8888888o  `8.`88.      ,8' d8888o.   8 8888888o. `8.`8b           ,8' 8 8888888o.   
     8 88        8         .8.         8 88    `88. `8.`88.    ,8'.`88:' `88. 8 88    `88. `8.`8b         ,8'  8 88    `88.  
     8 88        8        :888.        8 88     `88  `8.`88.  ,8' 8.`88.   Y8 8 88     `88  `8.`8b       ,8'   8 88     `88  
     8 88        8       . `888.       8 88     ,88   `8.`88.,8'  `8.`88.     8 88     ,88   `8.`8b     ,8'    8 88     ,88  
@@ -115,7 +117,7 @@ banner6 = """
     8 88888888888    .8' `8. `888.    8 88              `8 88       `8.`88.  8 88`8b           `8.`8b8'       8 88`8b       
     8 88        8   .8'   `8. `888.   8 88               8 88   8b   `8.`88. 8 88 `8b.          `8.`8'        8 88 `8b.     
     8 88        8  .888888888. `888.  8 88               8 88   `8b.  ;8.`88 8 88   `8b.         `8`8'        8 88   `8b.   
-    8 88        8 .8'       `8. `888. 8 88               8 88    `Y88P ,88P' 8 88     `88.        `8.`        8 88     `88.
+    8 88        8 .8'       `8. `888. 8 88               8 88    `Y88P ,88P' 8 88     `88.        `8'         8 88     `88.
     """
 
 banner7 = """
@@ -149,32 +151,81 @@ banner9 = """
     >=>    >=> >=>    >=>  >>   >=>    >==>         >=>  >=>  >=>       >=> >=>   >=>  >=>    
     >=>    >=>  >=>   >=>  >=> >=>      >=>   >=>    >=> >=>    >=>      >=>=>    >=>    >=>  
     >=>    >=>   >==>>>==> >=>         >=>      >=>>=>   >=>      >=>     >=>     >=>      >=>
-                        >=>       >=>                                                      
+                           >=>       >=>                                                      
     """
 
-banner10 = """                                                                                      
-                                                        .                                 
-    .    .                  t                          ;Wj.                    j.         
-    Di   Dt              .. ED.       f.     ;WE.     f#EEW,                   EW,        
-    E#i  E#i            ;W, E#K:      E#,   i#G     .E#f E##j       t      .DD.E##j       
-    E#t  E#t           j##, E##W;     E#t  f#f     iWW;  E###D.     EK:   ,WK. E###D.     
-    E#t  E#t          G###, E#E##t    E#t G#i     L##LffiE#jG#W;    E#t  i#D   E#jG#W;    
-    E########f.     :E####, E#ti##f   E#jEW,     tLLG##L E#t t##f   E#t j#f    E#t t##f   
-    E#j..K#j...    ;W#DG##, E#t ;##D. E##E.        ,W#i  E#t  :K#E: E#tL#i     E#t  :K#E: 
-    E#t  E#t      j###DW##, E#ELLE##K:E#G         j#E.   E#KDDDD###iE#WW,      E#KDDDD###i
-    E#t  E#t     G##i,,G##, E#L;;;;;;,E#t       .D#j     E#f,t#Wi,,,E#K:       E#f,t#Wi,,,
-    f#t  f#t   :K#K:   L##, E#t       E#t      ,WK,      E#t  ;#W:  ED.        E#t  ;#W:  
-    ii   ii  ;##D.    L##, E#t       EE.      EG.       DWi   ,KK: t          DWi   ,KK: 
-            ,,,      .,,            t        ,                                          
+banner10 = """                                                                                                                       
+    .    .                  t                           ;j .                       j.         
+    Di   Dt              .. ED.        f.     ;WE.     f#E EW,                   E W,.        
+    E#i  E#i            ;W, E#K:       E#,   i#G     .E#f  E##j        t      .DD. E##j       
+    E#t  E#t           j##, E##W;      E#t  f#f     iWW;   E###D.      EK:   ,WK.  E###D.     
+    E#t  E#t          G###, E#E##t     E#t G#i     L##Lffi E#jG#W;     E#t  i#D    E#jG#W;    
+    E########f.     :E####, E#ti##f    E#jEW,     tLLG##L  E#t t##f    E#t j#f     E#t t##f   
+    E#j..K#j...    ;W#  ##, E#t ;##D.  E##E.        ,W#i   E#t  :K#E:  E#tL#i      E#t  :K#E: 
+    E#t  E#t      j###DW##, E#ELLE##K: E#G         j#E.    E#KDDDD###i E#WW,       E#KDDDD###i
+    E#t  E#t     G##i,,G##, E#L;;;;;;, E#t       .D#j      E#f,t#Wi,,, E#K:        E#f,t#Wi,,,
+    f#t  f#t   :K#K:   L##, E#t        E#t      ,WK,       E#t  ;#W:   ED.         E#t  ;#W:  
+    ii   ii  ;##D.     L##, E#t        EE.      EG.        DWi   ,KK:  t           DWi   ,KK:                                      
     """
 
-banner_list = [banner1, banner2, banner3, banner4, banner5, banner6, banner7, banner8]
+banner11 = """
+    :::  === :::====  :::====  ::: === :::===  :::====  :::  === :::==== 
+    :::  === :::  === :::  === ::: === :::     :::  === :::  === :::  ===
+    ======== ======== =======   =====   =====  =======  ===  === ======= 
+    ===  === ===  === ===        ===       === === ===   ======  === === 
+    ===  === ===  === ===        ===   ======  ===  ===    ==    ===  ===
+    """
+
+banner12 = """
+    ('-. .-.   ('-.      _ (`-.                .-')   _  .-')        (`-.   _  .-')  
+    ( OO )  /  ( OO ).-. ( (OO  )              ( OO ).( \( -O )     _(OO  )_( \( -O ) 
+    ,--. ,--.  / . --. /_.`     \  ,--.   ,--.(_)---\_),------. ,--(_/   ,. \,------. 
+    |  | |  |  | \-.  \(__...--''   \  `.'  / /    _ | |   /`. '\   \   /(__/|   /`. '
+    |   .|  |.-'-'  |  ||  /  | | .-')     /  \  :` `. |  /  | | \   \ /   / |  /  | |
+    |       | \| |_.'  ||  |_.' |(OO  \   /    '..`''.)|  |_.' |  \   '   /, |  |_.' |
+    |  .-.  |  |  .-.  ||  .___.' |   /  /\_  .-._)   \|  .  '.'   \     /__)|  .  '.'
+    |  | |  |  |  | |  ||  |      `-./  /.__) \       /|  |\  \     \   /    |  |\  \ 
+    `--' `--'  `--' `--'`--'        `--'       `-----' `--' '--'     `-'     `--' '--'
+    """
+
+banner13 = """
+     __    __       ___      .______   ____    ____  _______..______     ____    ____ .______      
+    |  |  |  |     /   \     |   _  \  \   \  /   / /       ||   _  \    \   \  /   / |   _  \     
+    |  |__|  |    /  ^  \    |  |_)  |  \   \/   / |   (----`|  |_)  |    \   \/   /  |  |_)  |    
+    |   __   |   /  /_\  \   |   ___/    \_    _/   \   \    |      /      \      /   |      /     
+    |  |  |  |  /  _____  \  |  |          |  | .----)   |   |  |\  \----.  \    /    |  |\  \----.
+    |__|  |__| /__/     \__\ | _|          |__| |_______/    | _| `._____|   \__/     | _| `._____|
+    """
+
+banner_list = [banner1, banner2, banner3, banner4, banner5, banner6, banner7, banner8, banner9, banner10, banner11, banner12, banner13]
 color_list = [red, green, cyan, magenta, yellow, white, light_red, light_green, light_purple, light_yellow, turquoise]
+
+
 def banner_roll():
     screen_wipe()
     rbanner = random.choice(banner_list)
     cbanner = random.choice(color_list)+rbanner
     print(cbanner+stop)
+
+
+log = input('{}[-]{} Do you want to start logging? y/n > '.format(white,stop))
+if log.lower()[:1] == 'y':
+    log_file = 'Hapy_SRvR_{}.log'.format(str(datetime.datetime.today()).split()[0])
+    log = True
+else: 
+    log = False
+
+
+def logger(data):
+    """
+    This will log all data sent and received by the server
+    :data: the information sent or recieved
+    :logfile: The file that all the data will be saved to
+    """
+    data = str(data)
+    with open(log_file, 'a') as f:
+        f.write(data) 
+    
 
 
 def screen_wipe():
@@ -196,7 +247,13 @@ def mysendall(socket, data, delimiter):
     :data: The data being sent between server/client
     :delimiter: a string used to denote the end of a transmission
     """
+    start_msg = '\n'+'-'*25
+    start_msg += '\n[-] Started tx log at'
     E_data = base64.b64encode(data) + delimiter
+    if log:
+        end_msg = '[-] Ended tx log at\n'+'-'*25+'\n'
+        completion = '{}\n{}\n{}'.format(start_msg, data.decode(), end_msg)
+        logger(completion)
     return socket.sendall(E_data)
 
 
@@ -209,6 +266,7 @@ def myrecvall(socket, delimiter):
     :delimiter: a string used to denote the end of a transmission
     :D_data: the base 64 decoded data that is being received from the client
     """
+    start_msg = '\n'+'-'*25+'\n[-] Started rx log'
     # Initialize the data variable for the contents from the client
     data = b''
     # Keep receiving data until delimiter is at the end
@@ -217,6 +275,10 @@ def myrecvall(socket, delimiter):
     # base 64 decode and convert the bytes to a string
     D_data = base64.b64decode(data[:-len(delimiter)])
     # now we return the decoded data that was received from the client
+    if log:
+        end_msg = '[-] Ended rx log\n'+'-'*25+'\n'
+        completion = "{}\n{}\n{}".format(start_msg, D_data.decode(), end_msg)
+        logger(completion)
     return D_data
 
 
@@ -230,11 +292,14 @@ def upload(socket, delimiter):
     :data: The data being sent between server/client
     :delimiter: a string used to denote the end of a transmission
     """
-    # color_list = [red, green, cyan, magenta, yellow, white, light_red, light_green, light_purple, light_yellow, turquoise]
+    starter = '\n'+'-'*25
+    starter += "\n[-] Start upload function\n"
     while True:
         # Get file name from user
-        print("{}[-]{} Please provide the absolute path for the server file".format(light_purple, stop))
+        logdata = "{}[-]{} Please provide the absolute path for the server file".format(light_purple, stop)
+        print(logdata)
         filename = input("{}[-]{} What is the server file?> ".format(light_purple, stop))
+        logdata += "{}{}[-]{} What is the server file?> ".format(starter, light_purple, stop)
         # Try to open the file in read binary mode to send to the client
         try:
             with open(filename, 'rb') as f:
@@ -243,13 +308,18 @@ def upload(socket, delimiter):
                 data = f.read() 
         except Exception as e:
             # If there is an error print the error to the server user
-            print('{}[-]{} ERROR:\nTried to open {}\nReceived Error: {}'.format(light_red, stop, filename, str(e)))
+            E_msg = '{}[-]{} ERROR:\nTried to open {}\nReceived Error: {}'.format(light_red, stop, filename, str(e))
+            logdata += E_msg
+            print(E_msg)
             # Once we print the error start the loop again.
             continue 
         else: 
             # Get the location from the user and encode it as bytes
-            print('{}[-]{} Please provide the absolute path of the client destination'.format(light_purple, stop))
+            path = '{}[-]{} Please provide the absolute path of the client destination'.format(light_purple, stop)
+            print(path)
             target_loc = input("{}[-]{} What is the client destination?> ".format(light_purple, stop))
+            logdata += '\n'+path
+            logdata += '\n{}[-]{} What is the client destination?> \n'.format(light_purple, stop)
             target_loc = target_loc.encode()
             # Send the target location to the client
             mysendall(socket, target_loc, delimiter)
@@ -261,14 +331,21 @@ def upload(socket, delimiter):
             # We receive the response from the client
             print(myrecvall(socket, delimiter).decode())
             # We tell the client we are ready for the next thing
-            data = '{}[-]{} Next'.format(light_purple, stop).encode()
+            data = '{}[-]{} Next\n'.format(light_purple, stop).encode()
             mysendall(socket, data, delimiter)
             break
     c_response = myrecvall(socket, delimiter).decode()
     if '[!] ERROR' in c_response:
-        print("{}[-]{} ERROR:{}".format(light_red, stop, c_response))
+        e_msg = "{}[-]{} ERROR:{}".format(light_red, stop, c_response)
+        if log: 
+            logdata+= e_msg
+        print(e_msg)
     else:
         print(c_response)
+    if log:
+        logdata += '\n[-] End upload function\n'
+        logdata += '-'*25+'\n'
+        logger(logdata)
    
 
 def searcher(socket, delimiter):
@@ -282,17 +359,20 @@ def searcher(socket, delimiter):
     :length: the amount of matches from the search
     :results: a list of results received from the client
     """
-    # color_list = [red, green, cyan, magenta, yellow, white, light_red, light_green, light_purple, light_yellow, turquoise]
     # Print the receive message
+    logdata = '\n'+'-'*25
+    logdata += "\n[-] Start search function"    
     print(myrecvall(socket, delimiter).decode())
     # We will get the file location to start the search and encode it
     file_loc = input("{}[-]{} Where should we start looking?> ".format(magenta, stop)).encode()
+    logdata += "\n{}[-]{} Where should we start looking?> ".format(magenta, stop)
     # We send the file location to the client to start the search
     mysendall(socket, file_loc, delimiter)
     # We print the response from the client
     print(myrecvall(socket, delimiter).decode())
     # We ask the user if the file name is known and encode the response
     data = input('{}[-]{} Do you know the file name?> '.format(magenta, stop)).encode()
+    logdata += '\n{}[-]{} Do you know the file name?> '.format(magenta, stop)
     # We send that data to the client
     mysendall(socket, data, delimiter)
     # We get the client response back
@@ -302,6 +382,7 @@ def searcher(socket, delimiter):
     # if the name is known we get the name and send it to the client
     if 'y' in known:
         data = input('{}[-]{} What is the file name?> '.format(magenta, stop)).encode()
+        logdata += '\n{}[-]{} What is the file name?> '.format(magenta, stop)
         mysendall(socket, data, delimiter)
     else:
         # If the name is unknown we send unknown to the client
@@ -309,6 +390,7 @@ def searcher(socket, delimiter):
         mysendall(socket, data, delimiter)
     # We tell the user that we are starting the search
     print("{}[-]{} Searching for file...".format(magenta, stop))
+    logdata += "\n{}[-]{} Searching for file...".format(magenta, stop)
     # Receive the number of matches from the search
     length = myrecvall(socket, delimiter).decode()
     # Check it the information received is an error or no results
@@ -338,6 +420,7 @@ def searcher(socket, delimiter):
             # Print the match to the screen for the user
             file_name, file_hash = match.split('--')
             print('{0}[!]{1} Match: {2}\n    --{3}'.format(magenta, stop, file_name, file_hash))
+            logdata += '\n{0}[!]{1} Match: {2}\n    --{3}'.format(magenta, stop, file_name, file_hash)
             # Append the match to the list for later
             results.append(match)
             # Tell the client we are ready for the next one
@@ -346,6 +429,9 @@ def searcher(socket, delimiter):
             mysendall(socket, data, delimiter)
         # Print the command complete message
         print(myrecvall(socket, delimiter).decode())
+    if log:
+        logdata += '\n[-] End search function\n'+'-'*25+'\n'
+        logger(logdata)
 
 
 def advanced_help():
@@ -353,11 +439,22 @@ def advanced_help():
     All messages that start with {0}[-]{1} are server side
     All messages that start with {2}[!]{1} are client side
     The script will start as follows:
+    
+       ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
+       ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
+       ┃╰━╯┣━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
+       ┃╭━╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
+       ┃┃╱┃┃╭╮┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
+       ╰╯╱╰┻╯╰┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
+       ╱╱╱╱╱╱╱┃┃╱╭━╯┃
+       ╱╱╱╱╱╱╱╰╯╱╰━━╯
+       
     {0}[-]{1} Binding Port: <port>
     {0}[-]{1} Listening for connections...(until you receive a connection)
     {0}[-]{1} Connection established with client at <ip> !
     {0}[-]{1} Enter server command or type ? for server command list
     {0}[-]{1} user@ip: working_dir> 
+
     You will see the following prompt once you connect to a client:
     {0}[-]{1} user@ip: working_dir> server command
     For example, if connecting to sam at 127.0.0.1 in the home folder:
@@ -420,6 +517,7 @@ def advanced_help():
     |    {0}[-]{1} Searching for file...
     |    <Results of search>
     |    {2}[!]{1} Client search complete
+
     sh = shell  - enter a command loop for multiple commands
     |           - This will only work on linux currently!
     |    {0}[-]{1} user@ip:working_dir> sh
@@ -432,6 +530,7 @@ def advanced_help():
     |    {0}[-]{1} user@ip:working_dir> h
     |    {0}[-]{1} Would you like the basic or advanced help?> <b or adv>
     |    <help string>
+
     dc = disconnect - disconnect from the client
     |    {0}[-]{1} user@ip:working_dir> dc
     |    {2}[!]{1} Client terminated connection
@@ -440,20 +539,22 @@ def advanced_help():
     qt/ex = quit/exit - exit the program
     |    {0}[-]{1} user@ip:working_dir> qt or ex
     |    {0}[-]{1} Good Day sir, you win nothing nada zip.
+
     cl = clear       - clear the terminal screen using cls or clear
     |    {0}[-]{1} user@ip:working_dir> cl
     |
+
     b = banner      - display a new banner
     |    {0}[-]{1} user@ip: working_dir> b
     |
-    |   ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
-    |   ┃┃╱┃┃╱╱╱╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
-    |   ┃╰━╯┣━━┳━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
-    |   ┃╭━╮┃╭╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
-    |   ┃┃╱┃┃╭╮┃╰╯┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
-    |   ╰╯╱╰┻╯╰┫╭━┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
-    |   ╱╱╱╱╱╱╱┃┃╱┃┃╱╭━╯┃
-    |   ╱╱╱╱╱╱╱╰╯╱╰╯╱╰━━╯
+    |   ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
+    |   ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
+    |   ┃╰━╯┣━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
+    |   ┃╭━╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
+    |   ┃┃╱┃┃╭╮┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
+    |   ╰╯╱╰┻╯╰┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
+    |   ╱╱╱╱╱╱╱┃┃╱╭━╯┃
+    |   ╱╱╱╱╱╱╱╰╯╱╰━━╯
     |
     |    {0}[-]{1} Enter server command or type ? for server command list
     |    {0}[-]{1} user@ip: working_dir>
@@ -462,6 +563,7 @@ def advanced_help():
 
 def basic_help():
     print("""The script will start as follows:
+
     {0}[-]{1} Binding port: <port>
     {0}[-]{1} Listening for connections...(until you receive a connection)
     {0}[-]{1} Connection established with client at <ip>
@@ -470,6 +572,7 @@ def basic_help():
     
     You will see the following prompt once you connect to a client:
     {0}[-]{1} user@ip:working_dir> server command
+
     For example, if connecting to sam at 127.0.0.1 in the home folder:
     {0}[-]{1} sam@127.0.0.1:/home> server command
   
@@ -511,12 +614,15 @@ def download(socket, delimiter):
     :data: The data being sent between server/client
     :delimiter: a string used to denote the end of a transmission
     """
+    logdata = '\n'+'-'*25+'\n[-] Download function start'
     # Receive the file path comment from client
     print(myrecvall(socket, delimiter).decode())
     # Tell the user to provide the full path for the file
     print('{}[-]{} Please provide the absolute path for the client file'.format(light_purple, stop))
+    logdata += '\n{}[-]{} Please provide the absolute path for the client file'.format(light_purple, stop)
     # We are getting the file path from the user
     data = input('{}[-]{} What is the client file?> '.format(light_purple, stop)).encode()
+    logdata += '\n{}[-]{} What is the client file?> '.format(light_purple, stop)
     # Now we send the path to the client
     mysendall(socket, data, delimiter)
     # We receive the client file contents
@@ -528,16 +634,22 @@ def download(socket, delimiter):
     # file in binary mode at the location.
     else:
         print('{}[-]{} Please provide the absolute path to the server destination'.format(light_purple, stop))
+        logdata += '\n{}[-]{} Please provide the absolute path to the server destination'.format(light_purple, stop)
         theFile = input("{}[-]{} What is the server destination?> ".format(light_purple, stop))
+        logdata += "\n{}[-]{} What is the server destination?> ".format(light_purple, stop)
         with open(theFile, 'w') as outFile:
             outFile.write(recvd)
     print("{}[-]{} File successfully downloaded to: {}".format(light_purple, stop, theFile))
+    logdata += "\n{}[-]{} File successfully downloaded to: {}".format(light_purple, stop, theFile)
     # This will sync the server and client
     data = '{}[-]{} Next'.format(light_purple, stop).encode()
     # Now we send the message to the client
     mysendall(socket, data, delimiter)
     # Now we print the message from the client
     print(myrecvall(socket, delimiter).decode())
+    if log:
+        logdata += '\n[-] Download function end\n'+'-'*25+'\n'
+        logger(logdata)
 
 
 def command(socket, data, delimiter):
@@ -549,6 +661,7 @@ def command(socket, data, delimiter):
     :s_prompt: The string at the start of every command
     :delimiter: a string used to denote the end of a transmission
     """
+    logdata = '\n'+'-'*25+'\n[-] Command function start'
     # Initialize a value for start of while loop
     # We print that the client is ready for the command
     print(myrecvall(socket,delimiter).decode())  
@@ -571,17 +684,23 @@ def command(socket, data, delimiter):
         output = myrecvall(socket,delimiter).decode()  
         if output.startswith("[!] ERROR") or output.startswith('[!] No'):
             print(output+'\n')
+            logdata += output+'\n'
         else:
             print('{}[-]{} Command output: '.format(turquoise, stop))
-            print(output)
+            logdata += '\n{}[-]{} Command output: '.format(turquoise, stop)
+            print(output) 
         # Now we tell the client we are ready for the next command
         data = '{}[-]{} Next'.format(turquoise, stop).encode()
         mysendall(socket, data, delimiter)  
         # We recieve the client message
-        print('\n'+myrecvall(socket,delimiter).decode())  
+        print('\n'+myrecvall(socket,delimiter).decode()) 
+    if log:
+        logdata = '\n[-] End command function'+'-'*25+'\n'
+        logger(logdata)
         
 
 def shell(socket, delimiter):
+    logdata = '\n'+'-'*25+'\n[-] Start shell function'
     client_msg = myrecvall(socket,delimiter).decode()
     if client_msg.startswith('win'):
         data = '{}[-]{} Goodbye'.format(teal, stop).encode()
@@ -594,10 +713,13 @@ def shell(socket, delimiter):
             subprocess.call('nc -nlvvvp 34543', shell=True)
         except KeyboardInterrupt:
             print('{}[-]{} Exiting client shell'.format(teal, stop))
+            logdata += '\n{}[-]{} Exiting client shell'.format(teal, stop)
             print(myrecvall(socket, delimiter).decode())
         else:
             print(myrecvall(socket, delimiter).decode())
-    
+    if log:
+        logdata += '\n[-] End shell function'+'-'*25+'\n'
+        logger(logdata)
 
 def multi(socket, delimiter, addr):
     """
@@ -610,6 +732,7 @@ def multi(socket, delimiter, addr):
     :prompt: A string identifying the username, ip and directory
     :type_e: the data type of the error received
     """
+    logdata = '\n'+'-'*25+'\n[-] Start mult function'
     data = b''
     while data != b'bk':
         try:
@@ -617,12 +740,15 @@ def multi(socket, delimiter, addr):
         except Exception as e:
             type_e = str(type(e)).split()[1].split(">")[0]
             print('{0}[-]{1} Multi Function Error: \n  --Error type: {2}\n  --Error: {3}'.format(turquoise, stop, type_e, e))
+            logdata += '\n{0}[-]{1} Multi Function Error: \n  --Error type: {2}\n  --Error: {3}'.format(turquoise, stop, type_e, e)
             data = b'back'            
         # split the information received and use the name and working dir as prompt
         client_name, client_CWD = client_info.split(';')
         # We print the server commands
         print('{0}[-]{1} Enter shell command or type bk to go back'.format(turquoise, stop))
+        logdata += '\n{0}[-]{1} Enter shell command or type bk to go back'.format(turquoise, stop)
         prompt = '{3}[!]{4} {0}@{1}: {2}> '.format(client_name, addr, client_CWD, turquoise, stop)
+        logdata += '\n'+prompt
         data = input(prompt).encode()
         # This will call the function defined above, we are passing the connection
         mysendall(socket, data, delimiter) 
@@ -632,6 +758,9 @@ def multi(socket, delimiter, addr):
             command(socket, data, delimiter)
             # Wait for the next server command
             continue
+    if log:
+        logdata += '\n[-] End multi function\n'+'-'*25+'\n'
+        logger(logdata)
 
 
 def main():
@@ -668,6 +797,8 @@ def main():
     qt  - quit
     ex  - exit
 """.format(white, stop)
+    if log:
+        logger('\n[-] Log started at: {}'.format(datetime.datetime.now()))
     # We will set the constants for our
     ports = [8888, 7777, 6666, 5555]
     ip = '0.0.0.0'
@@ -682,6 +813,8 @@ def main():
         try:
             time.sleep(1)
             print("{}[-]{} Binding port: {}".format(white, stop, port))  # Identify the port for connection
+            if log:
+                logger("\n{}[-]{} Binding port: {}".format(white, stop, port))  # Identify the port for connection
             srvr.bind((ip, port))  # Bind to the ip and port from user input
         except socket.error:
             continue
@@ -695,11 +828,15 @@ def main():
         # If the client drops the server will remain up.
         while True:
             print("{}[-]{} Listening for connections on 0.0.0.0 ...".format(white, stop))
+            if log:
+                logger("\n{}[-]{} Listening for connections on 0.0.0.0 ...".format(white, stop))
             # we will now use the accept method once a client reaches out
             conn, addr = srvr.accept()
             ip_addr = addr[0]
             # Print that a connection has occurred
             print("{}[-]{} Connection established with client at {} !".format(white, stop, str(ip_addr)))
+            if log:
+                logger("\n{}[-]{} Connection established with client at {} !".format(white, stop, str(ip_addr)))
             # Initialize an internal while loop for data handling
             data = b'start'
             cmd_list = []
@@ -710,8 +847,12 @@ def main():
                 # split the information received and use the name and working dir as prompt
                 client_name, client_CWD = client_info.split(';')
                 print('{}[-]{} Enter server command or press ? for server command list'.format(white, stop))
+                if log:
+                    logger('\n{}[-]{} Enter server command or press ? for server command list'.format(white, stop))
                 # We print the server commands
                 prompt = '{3}[-]{4} {0}@{1}: {2}> '.format(client_name, ip_addr, client_CWD, white, stop)
+                if log:
+                    logger('\n{3}[-]{4} {0}@{1}: {2}> '.format(client_name, ip_addr, client_CWD, white, stop))
                 # Now we have our prompt: {}[-]{} user@ip:working_directory>
                 # This will take the byte encoded input 
                 # from the user and save it in a variable
@@ -740,6 +881,8 @@ def main():
                             pass
                         else:
                             print('    {0}{2}{1} {3}'.format(magenta, stop, cmd_list.index(cmd), cmd))
+                            if log:
+                                logger('\n    {0}{2}{1} {3}'.format(magenta, stop, cmd_list.index(cmd), cmd))
                     continue
                 elif data == b'dc':
                     # Print the client disconnect message on the screen
@@ -776,10 +919,16 @@ def main():
                 elif data == b'cmd':
                     print(myrecvall(conn, delimiter).decode())
                     ask = input('{}[-]{} s - single or m - multiple:> '.format(turquoise, stop)).strip()
+                    if log:
+                        logger('\n{}[-]{} s - single or m - multiple:> '.format(turquoise, stop))
                     mysendall(conn, ask.encode(), delimiter)
                     if ask.lower().startswith('s'):
                         print('{}[-]{} Enter os command or type bk to go back'.format(turquoise, stop))
+                        if log:
+                            logger('\n{}[-]{} Enter os command or type bk to go back'.format(turquoise, stop))
                         data = input('{}[-]{} What command:> '.format(turquoise, stop)).strip().encode()
+                        if log:
+                            logger('\n{}[-]{} What command:> '.format(turquoise, stop))
                         # Enter the command function to run commands
                         command(conn, data, delimiter)
                         # Wait for the next server command
@@ -797,6 +946,8 @@ def main():
                     # Print the disconnection message from the client
                     print(myrecvall(conn, delimiter).decode())
                     # Wait for one second before clearing screen
+                    if log:
+                        logger('\n[-] Server log end at: {}'.format(datetime.datetime.now()))
                     time.sleep(1)
                     # Clear the screen 
                     screen_wipe()
@@ -811,6 +962,9 @@ def main():
     except KeyboardInterrupt:
         # If a ctrl + c is entered we print the message
         print("\n{}[-]{} Good Day Sir! I said good day!".format(white, stop))  
+        if log:
+            logger("\n{}[-]{} Good Day Sir! I said good day!".format(white, stop))  
+            logger('\n[-] Server log end at: {}'.format(datetime.datetime.now()))
         # Close the server object
         srvr.close()
         # Exit the program
@@ -820,6 +974,9 @@ def main():
         type_e = str(type(e)).split()[1].split('>')[0]
         data = '{0}[-]{1} Main Function Error: \n  --ERROR TYPE: {2} \n  --ERROR:{3}'.format(light_red, stop, type_e, str(e))
         # Close the server object
+        if log:
+            logger('\n'+data)
+            logger('\n[-] Server log end at: {}\n'.format(datetime.datetime.now()))
         print(data)
         srvr.close()
         # Exit the program
