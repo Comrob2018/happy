@@ -489,7 +489,7 @@ def main():
         print('Finalizing Update....')
 
     # This is setting up the client to communicate with the server
-    ip = '192.168.86.26'
+    ip = '192.168.86.27'
     ports = [8888, 7777, 6666, 5555]
     delimiter = b'!!@@##$$!!'
     # This is the socket object that will connect to the server
