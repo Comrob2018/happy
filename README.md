@@ -1,5 +1,6 @@
 # Hapy_SRVR
 A bot server and search script that will allow for remote administration of a system.
+The scripts in this repository are for educational use only.
 
 USAGE: python3 happy_bot.py <> python3 happy_srvr.py
 
