@@ -1,14 +1,16 @@
-#####################################
-## Name: MSgt Robert Hendrickson
-## ID:   instructor05
-## Date: 10-07-2021
-## FILE: happy_search.py
-#####################################
+################################
+## NAME:    Robert Hendrickson
+## ID:      instructor05
+## DATE:    10-07-2021
+## UPDATED: 11-16-2021:21:20
+## FILE:    hapy_serch.py
+## VERSION: 2.0
+################################
 """
 This program will search a filesystem for a file using regular expressions
-USAGE:
-import happy_little_search
-| happy_little_search.searcher(starter, known, filename, platform)
+USAGE: 
+import hapy_serch
+| hapy_serch.searcher(starter, known, filename, platform)
 re module used for regular expression matching
 os module used for path joining
 hashlib module required to make a md5 hash file path to send to server
