@@ -19,8 +19,9 @@ subprocess module used for screen clear at server
 time module used to pause during disconnection
 random module used to pick a random banner
 datetime module used for logging
-Everywhere <if log:>
+Everywhere <if log==True:> will execute if you choose to start logging
 """
+
 import base64
 import hashlib
 import os
