@@ -10,6 +10,9 @@ USAGE: python3 happy_bot.py <> python3 happy_srvr.py
     All messages that start with [-] are server side
     All messages that start with [!] are client side
     The script will start as follows:
+    [-] Do you want to start logging? y/n>
+    | if yes
+    | [-] Log will be saved as <log_file>
     [-] Binding Port: <port>
     [-] Listening for connections...(until you receive a connection)
     [-] Connection Received
