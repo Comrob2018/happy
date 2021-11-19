@@ -1,5 +1,5 @@
 # Hapy_SRVR
-A bot server and search script that will allow for remote administration of a system.
+A bot, server, and search script that will allow for remote administration of a system.
 
 All Updates are in the update log
 
