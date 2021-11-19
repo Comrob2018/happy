@@ -217,7 +217,7 @@ if log.lower()[:1] == 'y':
     date, ltime = str(datetime.datetime.now()).split('.')[0].split()
     log_date = '--'.join([date,ltime])
     log_file = 'Hapy_srvr_{}.log'.format(log_date)
-    print('{}[-]{} Log will be {}'.format(white,stop, log_file))
+    print('{}[-]{} Log will be saved as: {}'.format(white,stop, log_file))
     log = True
 else: 
     log = False
