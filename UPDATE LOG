@@ -1,10 +1,10 @@
-#Version 2.0
+# Version 2.0
 -The following things were added in version 2.0
 --Banners
 --Logging
 --added linux shell functionality
 
-#Version 1.5
+# Version 1.5
 -The following things were added in version 1.5
 --ability to disconnect and server will still listen for connections
 --ability to run commands in a loop
