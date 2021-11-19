@@ -17,6 +17,9 @@ os module required to check directory on host system to verify upload file
 sys module used for exiting the program
 subprocess module used for screen clear at server
 time module used to pause during disconnection
+random module used to pick a random banner
+datetime module used for logging
+Everywhere <if log:>
 """
 import base64
 import hashlib
@@ -214,6 +217,7 @@ if log.lower()[:1] == 'y':
     date, ltime = str(datetime.datetime.now()).split('.')[0].split()
     log_date = '--'.join([date,ltime])
     log_file = 'Hapy_srvr_{}.log'.format(log_date)
+    print('{}[-]{} Log will be {}'.format(white,stop, log_file))
     log = True
 else: 
     log = False
@@ -251,7 +255,7 @@ def mysendall(socket, data, delimiter):
     :delimiter: a string used to denote the end of a transmission
     """
     E_data = base64.b64encode(data) + delimiter
-    if log:
+    if log== True:
         logger(data.decode()+'\n')
     return socket.sendall(E_data)
 
@@ -440,6 +444,8 @@ def advanced_help():
     All messages that start with {0}[-]{1} are server side
     All messages that start with {2}[!]{1} are client side
     The script will start as follows:
+    [-] Do you want to enable logging? y/n> 
+    [-] Log will be <log_file>
     
        ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
        ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
