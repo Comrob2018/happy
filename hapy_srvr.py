@@ -716,18 +716,18 @@ def shell(socket, delimiter):
         logger('-'*50+'\n[-] Start shell function\n')
     client_msg = myrecvall(socket,delimiter).decode()
     if client_msg.startswith('win'):
-        data = '{}[-]{} Goodbye'.format(teal, stop).encode()
+        data = '{}[-]{} Goodbye'.format(cyan, stop).encode()
         mysendall(socket, data, delimiter)
         print(myrecvall(socket, delimiter).decode())
     else:
-        data = '{}[-]{} Starting listener on port 34543'.format(teal, stop).encode()
+        data = '{}[-]{} Starting listener on port 34543'.format(cyan, stop).encode()
         mysendall(socket, data, delimiter)
         try:
             subprocess.call('nc -nlvvvp 34543', shell=True)
         except KeyboardInterrupt:
-            print('{}[-]{} Exiting client shell'.format(teal, stop))
+            print('{}[-]{} Exiting client shell'.format(cyan, stop))
             if log:
-                logger('{}[-]{} Exiting client shell'.format(teal, stop))
+                logger('{}[-]{} Exiting client shell'.format(cyan, stop))
             print(myrecvall(socket, delimiter).decode())
         else:
             print(myrecvall(socket, delimiter).decode())
