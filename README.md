@@ -13,6 +13,16 @@ USAGE: python3 happy_bot.py <> python3 happy_srvr.py
     [-] Do you want to start logging? y/n>
     | if yes
     | [-] Log will be saved as <log_file>
+
+        ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
+        ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
+        ┃╰━╯┣━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
+        ┃╭━╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
+        ┃┃╱┃┃╭╮┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
+        ╰╯╱╰┻╯╰┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
+        ╱╱╱╱╱╱╱┃┃╱╭━╯┃
+        ╱╱╱╱╱╱╱╰╯╱╰━━╯
+        
     [-] Binding Port: <port>
     [-] Listening for connections...(until you receive a connection)
     [-] Connection Received
