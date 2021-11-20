@@ -360,9 +360,10 @@ def searcher(socket, delimiter):
     :length: the amount of matches from the search
     :results: a list of results received from the client
     """
-    # Print the receive message
+    # We check it there is logging or not, if there is logging we log the data in parentheses
     if log:
         logger('-'*50+"\n[-] Start search function\n")
+    # Print the receive message
     print(myrecvall(socket, delimiter).decode())
     # We will get the file location to start the search and encode it
     file_loc = input("{}[-]{} Where should we start looking?> ".format(magenta, stop)).encode()
@@ -374,6 +375,7 @@ def searcher(socket, delimiter):
     print(myrecvall(socket, delimiter).decode())
     # We ask the user if the file name is known and encode the response
     data = input('{}[-]{} Do you know the file name?> '.format(magenta, stop)).encode()
+    
     if log:
         logger('{}[-]{} Do you know the file name?>\n'.format(magenta, stop))
     # We send that data to the client
@@ -444,9 +446,10 @@ def advanced_help():
     All messages that start with {0}[-]{1} are server side
     All messages that start with {2}[!]{1} are client side
     The script will start as follows:
-    [-] Do you want to enable logging? y/n> 
-    [-] Log will be <log_file>
-    
+    [-] Do you want to enable logging? y/n>
+    if yes:
+    |    [-] Log will be <log_file>
+        
        ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
        ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
        ┃╰━╯┣━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
