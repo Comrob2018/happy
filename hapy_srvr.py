@@ -120,7 +120,7 @@ bnnr6 = """
     8 88        8     .8`8. `888.     8 8888888P'      `8. 88      `8.`88.   8 8888888P'      `8.`8b ,8'      8 8888888P'   
     8 88888888888    .8' `8. `888.    8 88              `8 88       `8.`88.  8 88`8b           `8.`8b8'       8 88`8b       
     8 88        8   .8'   `8. `888.   8 88               8 88   8b   `8.`88. 8 88 `8b.          `8.`8'        8 88 `8b.     
-    8 88        8  .888888888. `888.  8 88               8 88   `8b.  ;8.`88 8 88   `8b.         `8`8'        8 88   `8b.   
+    8 88        8  .888888888. `888.  8 88               8 88   `8b.  ;8.`88 8 88   `8b.         `8``'        8 88   `8b.   
     8 88        8 .8'       `8. `888. 8 88               8 88    `Y88P ,88P' 8 88     `88.        `8'         8 88     `88.
     """
 
@@ -217,7 +217,7 @@ if log.lower()[:1] == 'y':
     date, ltime = str(datetime.datetime.now()).split('.')[0].split()
     log_date = '--'.join([date,ltime])
     log_file = 'Hapy_srvr_{}.log'.format(log_date)
-    print('{}[-]{} Log will be saved as: {}'.format(wht,stop, log_file))
+    print('{}[-]{} Log will be saved as: {}'.format(wht, stop, log_file))
     log = True
 else: 
     log = False
