@@ -440,7 +440,7 @@ def searcher(socket, delimiter):
             # Send the ready message
             mysendall(socket, data, delimiter)
         # Print the command complete message
-        myrecvall(socket, delimiter).decode()
+        print(myrecvall(socket, delimiter).decode())
     if log == True:
         # Indicate end of search function for log
         logger('[-] End search function\n'+'-'*50+'\n')
@@ -578,7 +578,19 @@ def advanced_help():
 
 def basic_help():
     print("""The script will start as follows:
-
+    {0}[-]{1} Do you want to enable logging? y/n> 
+    if yes:
+    |    {0}[-]{1} Log file will be <log_file>
+    
+       ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
+       ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
+       ┃╰━╯┣━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
+       ┃╭━╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
+       ┃┃╱┃┃╭╮┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
+       ╰╯╱╰┻╯╰┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
+       ╱╱╱╱╱╱╱┃┃╱╭━╯┃
+       ╱╱╱╱╱╱╱╰╯╱╰━━╯
+       
     {0}[-]{1} Binding port: <port>
     {0}[-]{1} Listening for connections...(until you receive a connection)
     {0}[-]{1} Connection established with client at <ip>
