@@ -560,7 +560,7 @@ def advanced_help():
     |    {0}[-]{1} user@ip:working_dir> cl
     |
 
-    b = bnnr      - display a new bnnr
+    b = banner      - display a new banner
     |    {0}[-]{1} user@ip: working_dir> b
     |
     |   ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
@@ -578,34 +578,9 @@ def advanced_help():
 
 
 def basic_help():
-    print("""The script will start as follows:
-    {0}[-]{1} Do you want to enable logging? y/n> 
-    if yes:
-    |    {0}[-]{1} Log file will be <log_file>
-    
-       ╭╮╱╭╮╱╱╱╱╱╱╱╱╱╭━━━┳━━━┳╮╱╱╭┳━━━╮
-       ┃┃╱┃┃╱╱╱╱╱╱╱╱╱┃╭━╮┃╭━╮┃╰╮╭╯┃╭━╮┃
-       ┃╰━╯┣━━┳━━┳╮╱╭┫╰━━┫╰━╯┣╮┃┃╭┫╰━╯┃
-       ┃╭━╮┃╭╮┃╭╮┃┃╱┃┣━━╮┃╭╮╭╯┃╰╯┃┃╭╮╭╯
-       ┃┃╱┃┃╭╮┃╰╯┃╰━╯┃╰━╯┃┃┃╰╮╰╮╭╯┃┃┃╰╮
-       ╰╯╱╰┻╯╰┫╭━┻━╮╭┻━━━┻╯╰━╯╱╰╯╱╰╯╰━╯
-       ╱╱╱╱╱╱╱┃┃╱╭━╯┃
-       ╱╱╱╱╱╱╱╰╯╱╰━━╯
-       
-    {0}[-]{1} Binding port: <port>
-    {0}[-]{1} Listening for connections...(until you receive a connection)
-    {0}[-]{1} Connection established with client at <ip>
-    {0}[-]{1} Enter server command or press ? to view server command list
-    {0}[-]{1} user@ip:working_dir> 
-    
-    You will see the following prompt once you connect to a client:
-    {0}[-]{1} user@ip:working_dir> server command
-
-    For example, if connecting to sam at 127.0.0.1 in the home folder:
-    {0}[-]{1} sam@127.0.0.1:/home> server command
-  
-    Server commands are listed below 
-    b - display a new bnnr
+    print("""Server commands are listed below:
+           
+    b - display a new banner
     cl - clear the screen
     cmd - Send a shell command to the target system
     dc - disconnect from the client and listen for new connections
