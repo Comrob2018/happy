@@ -44,7 +44,6 @@ white = '\033[0;37m'  # This will turn terminal output white
 light_red = '\033[0;91m'  # This will turn terminal output light red
 light_green = '\033[0;92m'  # This will turn terminal output light green
 light_yellow = '\033[0;93m'  # This will turn terminal output light yellow
-teal = '\033[0;106m'  # This will turn terminal output light blue
 light_purple = '\033[0;95m'  # This will turn terminal output light purple
 turquoise = '\033[0;96m'  # This will turn terminal output turquoise
 stop = '\033[0m'  # This will return terminal output to its normal color.
