@@ -580,16 +580,16 @@ def advanced_help():
 def basic_help():
     print("""Server commands are listed below:
            
-    b -     display a new banner
-    cl -    clear the screen
-    cmd -   send a shell command to the target system
-    dc -    disconnect from the client and listen for new connections
-    dl -    download(receive) a file from the target system
-    ul -    upload(send) a file ot the target system
-    src -   search the target for specified files using regular expressions
-    sh -    start a terminal on a linux client
-    h -     display server commands
-    hs -    display command history for the server commands
+        b - display a new banner
+       cl - clear the screen
+      cmd - send a shell command to the target system
+       dc - disconnect from the client and listen for new connections
+       dl - download(receive) a file from the target system
+       ul - upload(send) a file ot the target system
+      src - search the target for specified files using regular expressions
+       sh - start a terminal on a linux client
+        h - display server commands
+       hs - display command history for the server commands
     qt/ex - stop execution of the script the program""".format(cyan, stop))
 
 def helper():
