@@ -219,6 +219,7 @@ if log.lower()[:1] == 'y':
     log_file = 'Hapy_srvr_{}.log'.format(log_date)
     print('{}[-]{} Log will be saved as: {}'.format(wht, stop, log_file))
     log = True
+    time.sleep(1)
 else: 
     log = False
 
