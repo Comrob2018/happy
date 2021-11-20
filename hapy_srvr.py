@@ -588,7 +588,7 @@ def basic_help():
        ul - upload(send) a file ot the target system
       src - search the target for specified files using regular expressions
        sh - start a terminal on a linux client
-        h - display server commands
+        h - display server help message
        hs - display command history for the server commands
     qt/ex - stop execution of the script the program""".format(cyan, stop))
 
