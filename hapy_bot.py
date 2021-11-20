@@ -158,7 +158,7 @@ def search(socket, delimiter):
         # send ready for file name, if unknown if will send the 
         # other message
         known = True
-        data = '{}[!]{} Ready for file name'.foramt(magenta, stop).encode()
+        data = '{}[!]{} Ready for file name'.format(magenta, stop).encode()
         # We let the server know we are ready for the file name
         mysendall(socket, data, delimiter)
         # We receive, decode, and strip the file name
