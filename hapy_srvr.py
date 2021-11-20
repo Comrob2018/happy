@@ -376,7 +376,7 @@ def searcher(socket, delimiter):
     print(myrecvall(socket, delimiter).decode())
     # We ask the user if the file name is known and encode the response
     data = input('{}[-]{} Do you know the file name?> '.format(magenta, stop)).encode()
-    
+    # If logging is enabled log the statement above
     if log == True:
         logger('{}[-]{} Do you know the file name?>\n'.format(magenta, stop))
     # We send that data to the client
@@ -395,7 +395,8 @@ def searcher(socket, delimiter):
     else:
         # If the name is unknown we send unknown to the client
         data = '{}[-]{} Unknown'.format(magenta, stop).encode()
-        
+        if log == True:
+            logger('{}[-]{} Unknown'.format(magenta, stop))  
         mysendall(socket, data, delimiter)
     # We tell the user that we are starting the search
     print("{}[-]{} Searching for file...".format(magenta, stop))
@@ -439,7 +440,7 @@ def searcher(socket, delimiter):
             # Send the ready message
             mysendall(socket, data, delimiter)
         # Print the command complete message
-        print(myrecvall(socket, delimiter).decode())
+        myrecvall(socket, delimiter).decode()
     if log == True:
         # Indicate end of search function for log
         logger('[-] End search function\n'+'-'*50+'\n')
