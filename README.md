@@ -25,8 +25,7 @@ USAGE: python3 happy_bot.py <> python3 happy_srvr.py
         
     [-] Binding Port: <port>
     [-] Listening for connections...(until you receive a connection)
-    [-] Connection Received
-    [-] Connection established with client at <ip>
+    [-] Connection established with client at <ip> !
     [-] Enter server commands or ? for list of server commands
     [-] user@ip:working_dir> 
 
@@ -56,7 +55,7 @@ USAGE: python3 happy_bot.py <> python3 happy_srvr.py
     |    [!] Ready for file name
     |    [-] What is the client file?> <Full path to file with extension>
     |    [-] What is the server destination?> <Full path to new location with extension>
-    |    [-] File successfully downloaded to : <path provided>
+    |    [-] File downloaded to server at: <path provided>
     |    [!] Client download complete
     
     ul = upload      - send a file to the client.
