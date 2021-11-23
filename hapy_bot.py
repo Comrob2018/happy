@@ -561,6 +561,9 @@ def main():
         elif command[:2] == 'sh':
             shell(mysocket, delimiter)
             continue
+        elif command[:6].lower() == 'ctrl+c':
+            sys.exit()
+            break
 
 
 if __name__ == "__main__":
