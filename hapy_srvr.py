@@ -975,12 +975,13 @@ def main():
                 # If a ctrl + c is enterd we print the message
                 print("\n{}[-]{} Good Day Sir! I said good day!".format(wht, stop))  
                 if log == True:
-                    logger("{}[-]{} Good Day Sir! I said good day!".format(wht, stop))  
+                    logger("{}[-]{} Good Day Sir! I said good day!\n".format(wht, stop))  
                     logger('[-] Server log end at: {}'.format(datetime.datetime.now())+'\n'+'='*50+'\n')
                 # Close the server object
-                data = b'ctrl+c'
+                data = b'[-] ctrl+c'
                 mysendall(conn, data, delimiter)
                 print(myrecvall(conn, delimiter).decode())
+                sys.exit()
     except Exception as e:
         # Print any error received from server side during connection attempt
         type_e = str(type(e)).split()[1].split('>')[0]

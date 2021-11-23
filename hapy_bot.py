@@ -561,7 +561,10 @@ def main():
         elif command[:2] == 'sh':
             shell(mysocket, delimiter)
             continue
-        elif command[:6].lower() == 'ctrl+c':
+        elif command.strip() == '[-] ctrl+c':
+            myrecvall(mysocket,delimiter).decode()
+            data = b'[!] Client exit'
+            mysendall(mysocket, data, delimiter)
             sys.exit()
             break
 
