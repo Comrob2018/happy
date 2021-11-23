@@ -795,7 +795,7 @@ def main():
                 function for more information
     """
     srvr_cmds = """\n{}[-]{} Server commands are as follows, enter them as shown:
-    b   - bnnr
+    b   - banner
     cl  - clear
     cmd - command  
     dc  - disconnect
