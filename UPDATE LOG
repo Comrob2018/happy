@@ -3,7 +3,6 @@
 --added handling for ctrl+c given on the server
 --changed the variable names for banner and colors to lt instead of light and bnnr instead of banner
 
-
 # Version 2.0
 -The following things were added in version 2.0
 --Banners
