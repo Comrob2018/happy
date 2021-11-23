@@ -302,6 +302,7 @@ def upload(socket, delimiter):
         filename = input("{}[-]{} What is the server file?> ".format(lt_prpl, stop))
         if log == True:
             logger("{}[-]{} What is the server file?>\n".format(lt_prpl, stop))
+            logger(filename+'\n')
         # Try to open the file in read binary mode to send to the client
         try:
             with open(filename, 'rb') as f:
