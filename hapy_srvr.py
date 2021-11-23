@@ -982,6 +982,12 @@ def main():
                 mysendall(conn, data, delimiter)
                 print(myrecvall(conn, delimiter).decode())
                 sys.exit()
+    except socket.timeout:
+        if log == True:
+            logger('[-] Socket timeout\n')
+            logger('[-] Server log end at: {}\n'.format(datetime.datetime.now())+'\n'+'='*50+'\n')
+        srvr.close()
+        sys.exit()
     except Exception as e:
         # Get the class for the error received 
         type_e = str(type(e)).split()[1].split('>')[0]
