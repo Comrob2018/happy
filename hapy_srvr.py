@@ -983,14 +983,17 @@ def main():
                 print(myrecvall(conn, delimiter).decode())
                 sys.exit()
     except Exception as e:
-        # Print any error received from server side during connection attempt
+        # Get the class for the error received 
         type_e = str(type(e)).split()[1].split('>')[0]
+        # Format the message so that is is interpreted correctly
         data = '{0}[-]{1} Main Function Error: \n  --ERROR TYPE: {2} \n  --ERROR:{3}'.format(lt_rd, stop, type_e, str(e))
+        # Print any error received from server side during connection attempt
         print(data)
-        # Close the server object
+        # If logging is enabled log the messages
         if log == True:
             logger('\n'+data+'\n')
             logger('[-] Server log end at: {}\n'.format(datetime.datetime.now())+'\n'+'='*50+'\n')
+        # Close the server object
         srvr.close()
         # Exit the program
         sys.exit()
