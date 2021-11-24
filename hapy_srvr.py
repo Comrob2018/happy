@@ -203,6 +203,9 @@ bnnr13 = """
 bnnr_list = [bnnr1, bnnr2, bnnr3, bnnr4, bnnr5, bnnr6, bnnr7, bnnr8, bnnr9, bnnr10, bnnr11, bnnr12, bnnr13]
 color_list = [rd, grn, cyan, magenta, ylw, wht, lt_rd, lt_grn, lt_prpl, lt_ylw, trquise]
 
+print('All messages that start with [-] are server side')
+print('All messages that start with [!] are client side')
+
 
 def bnnr_roll():
     screen_wipe()
@@ -590,7 +593,7 @@ def basic_help():
        sh - start a terminal on a linux client
         h - display server help message
        hs - display command history for the server commands
-    qt/ex - stop execution of the script the program""".format(cyan, stop))
+    qt/ex - stop execution of the program and exit""".format(cyan, stop))
 
 def helper():
     """
