@@ -18,4 +18,8 @@ The following things were added in version 1.5
 
 # Version 1.0
 Initial version
-- upload/download/search/run single command/exit 
+- upload
+- download
+- search
+- run single command
+- exit 
