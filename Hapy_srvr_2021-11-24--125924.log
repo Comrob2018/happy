@@ -1,0 +1,152 @@
+dl
+--------------------------------------------------
+[-] Start download function
+[0;95m[!][0m Ready for file name.
+[0;95m[-][0m Please provide the absolute path for the client file[0;95m[-][0m What is the client file?> /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+lxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
+sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
+pollinate:x:110:1::/var/cache/pollinate:/bin/false
+rob:x:1000:1000:,,,:/home/rob:/bin/bash
+
+[0;95m[-][0m Please provide the absolute path to the server destination
+[0;95m[-][0m What is the server destination?> 
+[0;95m[-][0m File successfully downloaded to: /home/rob/newt.txt
+[0;95m[-][0m Next
+[0;95m[!][0m Client download complete
+[-] End download function
+--------------------------------------------------
+rob;/mnt/c/Users/comro/Documents/GitHub/happy
+[0;37m[-][0m Enter server command or press ? for server command list
+[0;37m[-][0m rob@127.0.0.1: /mnt/c/Users/comro/Documents/GitHub/happy>
+ul
+--------------------------------------------------
+[-] Start upload function
+[0;95m[-][0m Please provide the absolute path for the server file
+[0;95m[-][0m What is the server file?>
+/home/rob/newt.txt
+[0;95m[-][0m Please provide the absolute path of the client destination
+[0;95m[-][0m What is the client destination?> 
+/home/rob/passwd2.txt
+[0;95m[!][0m Ready for file contents.
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+lxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin
+sshd:x:109:65534::/run/sshd:/usr/sbin/nologin
+pollinate:x:110:1::/var/cache/pollinate:/bin/false
+rob:x:1000:1000:,,,:/home/rob:/bin/bash
+
+[0;95m[!][0m File uploaded to client at: /home/rob/passwd2.txt
+
+[0;95m[-][0m Next
+
+[0;95m[!][0m Client upload complete
+[-] End upload function
+--------------------------------------------------
+rob;/mnt/c/Users/comro/Documents/GitHub/happy
+[0;37m[-][0m Enter server command or press ? for server command list
+[0;37m[-][0m rob@127.0.0.1: /mnt/c/Users/comro/Documents/GitHub/happy>
+src
+--------------------------------------------------
+[-] Start search function
+[0;35m[!][0m Starting Search
+[0;35m[-][0m Where should we start looking?>
+/home
+[0;35m[!][0m File path received at client
+[0;35m[-][0m Do you know the file name?>
+y
+[0;35m[!][0m Ready for file name
+[0;35m[-][0m What is the file name?>
+newt.txt
+[0;35m[-][0m Searching for file...
+2
+[0;35m[-][0m Ready
+/home/newt.txt--HASH: d41d8cd98f00b204e9800998ecf8427e
+[0;35m[!][0m Match: /home/newt.txt
+    --HASH: d41d8cd98f00b204e9800998ecf8427e
+[0;35m[-][0m Next
+/home/rob/newt.txt--HASH: 56d36e86eac7692d25121f5b41ffa3c2
+[0;35m[!][0m Match: /home/rob/newt.txt
+    --HASH: 56d36e86eac7692d25121f5b41ffa3c2
+[0;35m[-][0m Next
+[0;35m[!][0m Client search complete
+[-] End search function
+--------------------------------------------------
+rob;/mnt/c/Users/comro/Documents/GitHub/happy
+[0;37m[-][0m Enter server command or press ? for server command list
+[0;37m[-][0m rob@127.0.0.1: /mnt/c/Users/comro/Documents/GitHub/happy>
+cmd
+[0;96m[!][0m Client ready for commands
+[0;96m[-][0m s - single or m - multiple:>
+s
+[0;96m[-][0m Enter os command or type bk to go back
+[0;96m[-][0m What command:>
+--------------------------------------------------
+[-] Start command function
+[0;96m[!][0m Client received command
+cd /etc
+[0;96m[!][0m Changed directory to: /etc
+[0;96m[-][0m Next
+[0;96m[!][0m Client command complete
+[-] End command function
+--------------------------------------------------
+rob;/etc
+[0;37m[-][0m Enter server command or press ? for server command list
+[0;37m[-][0m rob@127.0.0.1: /etc>
+b
+rob;/etc
+[0;37m[-][0m Enter server command or press ? for server command list
+[0;37m[-][0m rob@127.0.0.1: /etc>
+ex
+[0;37m[!][0m Connection terminated at client
+[-] Server log end at: 2021-11-24 13:07:13.404126
+==================================================
