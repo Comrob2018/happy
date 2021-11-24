@@ -5,7 +5,7 @@ All Updates are in the update log
 
 The scripts in this repository are for educational use only.
 
-USAGE: python3 happy_bot.py <> python3 happy_srvr.py
+USAGE: python3 hapy_srvr.py <> python3 hapy_bot.py
 
     All messages that start with [-] are server side
     All messages that start with [!] are client side
