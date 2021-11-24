@@ -2,7 +2,6 @@
 ## NAME:     Robert Hendrickson
 ## ID:       instructor05
 ## CREATED:  10-07-2021
-## UPDATED:  11-16-2021:21:20
 ## FILE:     hapy_srvr.py
 ## VERSION:  2.0
 ################################
