@@ -601,14 +601,25 @@ def helper():
     :basic_str: the basic server functionality with server startup
     :advanced_str: server functionality with example usage of each command and example output
     """
+    if log == True:
+        logger('-'*50+'\n[-] Start help function\n')
     ask = input("{}[-]{} Would you like to view the basic or advanced help (b or adv)?> ".format(cyan, stop)).strip()
     # Check if the user enterd basic or advanced
     if 'b' == ask.lower():
         basic_help()
+        if log == True:
+            logger(basic_help())
     elif 'adv' == ask.lower():
         advanced_help()
+        if log == True:
+            logger(advanced_help())
     else:
         print("{}[-]{} You must enter b or adv !".format(cyan, stop))
+        if log == True:
+            logger("{}[-]{} You must enter b or adv !".format(cyan, stop))
+    if log == True:
+        # Indicate end of search function for log
+        logger('[-] End help function\n'+'-'*50+'\n')
 
 
 def download(socket, delimiter):
@@ -929,6 +940,8 @@ def main():
                     elif data == b'?':
                         # If ? is enterd display a list of server commands
                         print(srvr_cmds)
+                        if log == True:
+                            logger(srvr_cmds+'\n')
                         # Wait for the next command
                         continue
                     elif data == b'cmd':
