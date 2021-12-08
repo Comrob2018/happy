@@ -3,7 +3,6 @@
 ## ID:       instructor05
 ## CREATED:  10-07-2021
 ## FILE:     hapy_bot.py
-## VERSION:  2.0
 ################################
 """
 This program will create a bot and call to a server for commands
